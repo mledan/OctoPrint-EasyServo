@@ -33,9 +33,9 @@ compatibility:
 
 Here is a simple plugin to control two servos using the OctoPrint Control tab. It has been programmed in conjuction with a camera gimbal mount design I published on Thingiverse [here](https://www.thingiverse.com/).
 
-It utilizes a custom `@EASYSERVO <PIN NUMBER> <RELATIVE ANGLE DIFFERENCE>` command that can be incorporated within your slicer to automatically move while printing. 
+It utilizes a custom `@EASYSERVO <GPIO NUMER> <RELATIVE ANGLE DIFFERENCE>` command that can be incorporated within your slicer to automatically move while printing. 
 
-Example: `@EASYSERVO 12 10` will move the servo attached to pin 12 10 degrees in the positive direction from the current position. `@EASYSERVO 13 -10` will move the servo attached to pin 13 10 degrees in the negative direction from the current position. 
+Example: `@EASYSERVO 12 10` will move the servo attached to GPIO 12 10 degrees in the positive direction from the current position. `@EASYSERVO 13 -10` will move the servo attached to GPIO 13 10 degrees in the negative direction from the current position. 
 
 **Note:** The servos will initialize at 90 degrees on OctoPrint start up and is limited to a 90 degree swing in either direction.
 
