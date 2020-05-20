@@ -69,7 +69,9 @@ Your pi will shutdown and you are now ready to connect your servos.
 
 When the 5V and GND wiring of your servos is done, you can connect the signal wire to GPIO pins that you want.
 ![Raspberry Pi 3B+ GPIO number overview](screenshot_raspberry_gpio.png)
+Here is a quick reminder that you can use to plug your servos to your Raspberry pi 3b+
 ![Servos are connected to GPIO 11 and GPIO 12](screenshot_servos_connexion.png)
+For example, here, servos are connected to GPIO 11 and 12
 
 **You are now ready to continue with the plugin install.**
 
