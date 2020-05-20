@@ -23,22 +23,22 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 		)
 
 	def on_settings_save(self, data):
-		oldPinX = self._settings.get_boolean(["pinX"])
-		oldPinY = self._settings.get_boolean(["pinY"])
+		oldPinX = self._settings.get_int(["pinX"])
+		oldPinY = self._settings.get_int(["pinY"])
 
 		octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
 
-		newPinX = self._settings.get_boolean(["pinX"])
-		newPinY = self._settings.get_boolean(["pinY"])
+		newPinX = self._settings.get_int(["pinX"])
+		newPinY = self._settings.get_int(["pinY"])
 
 		if oldPinX != newPinX:
-			self._logger.info("Pin x changed, initilizing.")
+			self._logger.info("Pin x changed, initializing.")
 			self.current_angle_x = 90
 			self.pi.set_servo_pulsewidth(newPinX, 0)
 			self._logger.info("moving pin %d to %d degrees" % (newPinX,self.current_angle_x))
 			self.pi.set_servo_pulsewidth(newPinX, self.angle_to_width(self.current_angle_x, "X"))
 		if oldPinY != newPinY:
-			self._logger.info("Pin y changed, initilizing.")
+			self._logger.info("Pin y changed, initializing.")
 			self.current_angle_y = 90
 			self.pi.set_servo_pulsewidth(newPinY, 0)
 			self._logger.info("moving pin %d to %d degrees" % (newPinY,self.current_angle_y))
