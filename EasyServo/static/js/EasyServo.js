@@ -16,17 +16,17 @@ $(function() {
 		}
 
 		self.onBeforeBinding = function() {
-			self.controlViewModel.right = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinX() + ' -10');
-			self.controlViewModel.left = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinX() + ' 10');
-			self.controlViewModel.up = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinY() + ' -10');
-			self.controlViewModel.down = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinY() + ' 10');
+			self.controlViewModel.right = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' -10');
+			self.controlViewModel.left = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' 10');
+			self.controlViewModel.up = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' -10');
+			self.controlViewModel.down = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' 10');
 		}
 
 		self.onEventSettingsUpdated = function (payload) {            
-			self.controlViewModel.right('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinX() + '-10');
-			self.controlViewModel.left('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinX() + '10');
-			self.controlViewModel.up('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinY() + '-10');
-			self.controlViewModel.down('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.pinY() + '10');
+			self.controlViewModel.right('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' -10');
+			self.controlViewModel.left('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' 10');
+			self.controlViewModel.up('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' -10');
+			self.controlViewModel.down('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' 10');
 		};
 	}
 

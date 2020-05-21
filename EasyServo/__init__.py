@@ -18,31 +18,31 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 	##~~ SettingsPlugin mixin
 	def get_settings_defaults(self):
 		return dict(
-			pinX="12",
-			pinY="13"
+			GPIOX="12",
+			GPIOY="13"
 		)
 
 	def on_settings_save(self, data):
-		oldPinX = self._settings.get_boolean(["pinX"])
-		oldPinY = self._settings.get_boolean(["pinY"])
+		oldGPIOX = self._settings.get_int(["GPIOX"])
+		oldGPIOY = self._settings.get_int(["GPIOY"])
 
 		octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
 
-		newPinX = self._settings.get_boolean(["pinX"])
-		newPinY = self._settings.get_boolean(["pinY"])
+		newGPIOX = self._settings.get_int(["GPIOX"])
+		newGPIOY = self._settings.get_int(["GPIOY"])
 
-		if oldPinX != newPinX:
-			self._logger.info("Pin x changed, initilizing.")
+		if oldGPIOX != newGPIOX:
+			self._logger.info("GPIO x changed, initilizing.")
 			self.current_angle_x = 90
-			self.pi.set_servo_pulsewidth(newPinX, 0)
-			self._logger.info("moving pin %d to %d degrees" % (newPinX,self.current_angle_x))
-			self.pi.set_servo_pulsewidth(newPinX, self.angle_to_width(self.current_angle_x, "X"))
-		if oldPinY != newPinY:
-			self._logger.info("Pin y changed, initilizing.")
+			self.pi.set_servo_pulsewidth(newGPIOX, 0)
+			self._logger.info("moving GPIO %d to %d degrees" % (newGPIOX,self.current_angle_x))
+			self.pi.set_servo_pulsewidth(newGPIOX, self.angle_to_width(self.current_angle_x, "X"))
+		if oldGPIOY != newGPIOY:
+			self._logger.info("GPIO y changed, initilizing.")
 			self.current_angle_y = 90
-			self.pi.set_servo_pulsewidth(newPinY, 0)
-			self._logger.info("moving pin %d to %d degrees" % (newPinY,self.current_angle_y))
-			self.pi.set_servo_pulsewidth(newPinY, self.angle_to_width(self.current_angle_y, "Y"))
+			self.pi.set_servo_pulsewidth(newGPIOY, 0)
+			self._logger.info("moving GPIO %d to %d degrees" % (newGPIOY,self.current_angle_y))
+			self.pi.set_servo_pulsewidth(newGPIOY, self.angle_to_width(self.current_angle_y, "Y"))
 
 
 	##~~ AssetPlugin mixin
@@ -65,16 +65,16 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			self._logger.info("There was an error initiliazing pigpio")
 			return
 
-		pinX = self._settings.get_int(["pinX"])
-		pinY = self._settings.get_int(["pinY"])
+		GPIOX = self._settings.get_int(["GPIOX"])
+		GPIOY = self._settings.get_int(["GPIOY"])
 		# initialize x axis
-		self.pi.set_servo_pulsewidth(pinX, 0)
-		self._logger.info("moving pin %d to %d degrees" % (pinX,self.current_angle_x))
-		self.pi.set_servo_pulsewidth(pinX, self.angle_to_width(self.current_angle_x, "X"))
+		self.pi.set_servo_pulsewidth(GPIOX, 0)
+		self._logger.info("moving GPIO %d to %d degrees" % (GPIOX,self.current_angle_x))
+		self.pi.set_servo_pulsewidth(GPIOX, self.angle_to_width(self.current_angle_x, "X"))
 		# initialize y axis
-		self.pi.set_servo_pulsewidth(pinY, 0)
-		self._logger.info("moving pin %d to %d degrees" % (pinY,self.current_angle_y))
-		self.pi.set_servo_pulsewidth(pinY, self.angle_to_width(self.current_angle_y, "X"))
+		self.pi.set_servo_pulsewidth(GPIOY, 0)
+		self._logger.info("moving GPIO %d to %d degrees" % (GPIOY,self.current_angle_y))
+		self.pi.set_servo_pulsewidth(GPIOY, self.angle_to_width(self.current_angle_y, "X"))
 
 
 	##~~ ShutdownPlugin mixin
@@ -84,15 +84,14 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			self._logger.info("There was an error on shutdown pigpio not connected")
 			return
 
-		pinX = self._settings.get_int(["pinX"])
-		pinY = self._settings.get_int(["pinY"])
-		self.pi.set_servo_pulsewidth(pinX, 0)
-		self.pi.set_servo_pulsewidth(pinY, 0)
+		GPIOX = self._settings.get_int(["GPIOX"])
+		GPIOY = self._settings.get_int(["GPIOY"])
+		self.pi.set_servo_pulsewidth(GPIOX, 0)
+		self.pi.set_servo_pulsewidth(GPIOY, 0)
 		self.pi.stop()
 
 	##-- Template hooks
 
-	##~~ Settings: Pour changer les réglages dans la barre des plugins (ex: GPIOpin)
 	def get_template_configs(self):
 		return [dict(type="settings",custom_bindings=False)]
 
@@ -140,18 +139,18 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 
 	def processAtCommand(self, comm_instance, phase, command, parameters, tags=None, *args, **kwargs):
 		if command == 'EASYSERVO':
-			#get pin and angle from parameters
-			pin,ang = parameters.split(' ')
-			if int(pin) == self._settings.get_int(["pinX"]):
-				self._logger.info("moving pin %d to %d degrees" % (int(pin),self.current_angle_x))
+			#get GPIO and angle from parameters
+			GPIO,ang = parameters.split(' ')
+			if int(GPIO) == self._settings.get_int(["GPIOX"]):
+				self._logger.info("moving GPIO %d to %d degrees" % (int(GPIO),self.current_angle_x))
 				self.current_angle_x = self.current_angle_x + int(ang)
-				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(self.current_angle_x, "X"))
-			elif int(pin) == self._settings.get_int(["pinY"]):
-				self._logger.info("moving pin %d to %d degrees" % (int(pin),self.current_angle_y))
+				self.pi.set_servo_pulsewidth(int(GPIO), self.angle_to_width(self.current_angle_x, "X"))
+			elif int(GPIO) == self._settings.get_int(["GPIOY"]):
+				self._logger.info("moving GPIO %d to %d degrees" % (int(GPIO),self.current_angle_y))
 				self.current_angle_y = self.current_angle_y + int(ang)
-				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(self.current_angle_y, "Y"))
+				self.pi.set_servo_pulsewidth(int(GPIO), self.angle_to_width(self.current_angle_y, "Y"))
 			else:
-				self._logger.info("unknown pin %d" % int(pin))
+				self._logger.info("unknown GPIO %d" % int(GPIO))
 
 
 __plugin_name__ = "Easy Servo"
