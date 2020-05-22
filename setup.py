@@ -27,7 +27,7 @@ plugin_author = "iFrostizz"
 plugin_author_email = "fgg67@hotmail.fr"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/iFrostizz/EasyServo"
+plugin_url = "https://github.com/iFrostizz/OctoPrint-EasyServo"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "AGPLv3"
