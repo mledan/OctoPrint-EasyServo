@@ -7,7 +7,7 @@ description: Plugin to control two servos attached to a camera gimbal to control
 author: iFrostizz, jneilliii
 license: AGPLv3
 
-date: 2020-05-20
+date: 2020-05-21
 
 homepage: https://github.com/iFrostizz/OctoPrint-EasyServo
 source: https://github.com/iFrostizz/OctoPrint-EasyServo
@@ -25,7 +25,7 @@ compatibility:
   - 1.2.0
   os:
   - linux
-  python: ">=2.7,<3"
+  python: ">=2.7,<4"
 
 ---
 

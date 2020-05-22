@@ -100,17 +100,17 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 	def get_update_information(self):
 		return dict(
 			EasyServo=dict(
-				displayName="Easyservo Plugin",
+				displayName="Easy Servo",
 				displayVersion=self._plugin_version,
 
 				# version check: github repository
 				type="github_release",
-				user="you",
+				user="iFrostizz",
 				repo="EasyServo",
 				current=self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/you/EasyServo/archive/{target_version}.zip"
+				pip="https://github.com/iFrostizz/EasyServo/archive/{target_version}.zip"
 			)
 		)
 
