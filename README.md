@@ -73,6 +73,8 @@ Connect the 5V and GND wires of your servos (recommended exernal power source) f
 
 Use the chart below to identify the GPIO numbers to use in the plugin's settings after install if you choose anything other than 12 or 13 as diagrammed above. The GPIO numbers in yellow are the ones that can be controlled by this plugin.
 
+*Grounding the external power supply may be a solution if your servos are doing anything strange!*
+
 ![Servos are connected to GPIO 12 and GPIO 13](screenshot_GPIO.png)
 
 **You are now ready to continue with the plugin install/configuration.**
