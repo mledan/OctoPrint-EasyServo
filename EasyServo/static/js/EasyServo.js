@@ -20,6 +20,7 @@ $(function() {
 			self.controlViewModel.left = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' 10');
 			self.controlViewModel.up = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' -10');
 			self.controlViewModel.down = ko.observable('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' 10');
+			self.controlViewModel.autoHome = ko.observable('@EASYSERVOAUTOHOME ');
 		}
 
 		self.onEventSettingsUpdated = function (payload) {            
@@ -27,6 +28,7 @@ $(function() {
 			self.controlViewModel.left('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOX() + ' 10');
 			self.controlViewModel.up('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' -10');
 			self.controlViewModel.down('@EASYSERVO ' + self.settingsViewModel.settings.plugins.EasyServo.GPIOY() + ' 10');
+			self.controlViewModel.autoHome('@EASYSERVOAUTOHOME ');
 		};
 	}
 
