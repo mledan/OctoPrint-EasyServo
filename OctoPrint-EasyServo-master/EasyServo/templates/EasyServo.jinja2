@@ -1,0 +1,34 @@
+<div id="control-easy-servo-wrapper">
+    <!-- ko allowBindings: false -->
+    &nbsp;<div id="control-jog-xy-servo" class="jog-panel">
+        <h1>Easy Servo</h1>
+        <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="control-yinc-servo" class="btn box" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(up()); }"><i class="fa fa-arrow-up"></i></button>
+        </span>
+        <div>
+            <button id="control-xdec-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(left()); }"><i class="fa fa-arrow-left"></i></button>
+            <button id="control-xyhome-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(autoHome());}"><i class="fa fa-home"></i></button>
+            <button id="control-xinc-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(right()); }"><i class="fa fa-arrow-right"></i></button>
+        </div>
+        <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="control-ydec-servo" class="btn box" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(down()); }"><i class="fa fa-arrow-down"></i></button>
+        </span>
+        <div>
+            X Absolute
+            <label>
+                <input type="number" id="control-xangle" min="0" max="180" class="input-mini" data-bind="textInput: xAngle">
+                <button data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(xabs()); }">Go!</button>
+                <button id="control-xhome-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(autoHomeX());}"><i class="fa fa-home"></i></button>
+            </label>
+        </div>
+        <div>
+            Y Absolute
+            <label>
+                <input type="number" id="control-yangle" min="0" max="180" class="input-mini" data-bind="textInput: yAngle">
+                <button data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
+                <button id="control-yhome-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i class="fa fa-home"></i></button>
+            </label>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

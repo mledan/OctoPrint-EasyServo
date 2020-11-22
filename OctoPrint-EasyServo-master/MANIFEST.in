@@ -1,0 +1,4 @@
+include README.md
+recursive-include EasyServo/templates *
+recursive-include EasyServo/translations *
+recursive-include EasyServo/static *
