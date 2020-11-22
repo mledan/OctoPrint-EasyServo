@@ -1,6 +1,7 @@
+<div id="settings-panel-servo">
 <h4>Easy Servo Settings<div class="label label-info pull-right"><small style="color:white;">Please make sure that all prerequsites are met as descibed <a style="color:white;" href="https://github.com/jneilliii/OctoPrint-EasyServo#pre-installation-requirements">here</a>.</small></div></h4>
 
-<form class="form" id="settings_plugin_EasyServo_form">
+  <form class="form" id="settings_plugin_EasyServo_form">
 	<div class="control-group">
 		<label class="control-label">{{ _('X Axis GPIO Number') }}</label>
 		<div class="controls">
@@ -37,4 +38,18 @@
 			<input type="checkbox" class="input-block-level" data-bind="checked: settings.plugins.EasyServo.yInvert">
 		</div>
 	</div>
-</form>
+    <div class="control-group">
+		<label class="control-label">{{ _('X Axis Sleep Time (ms)') }}</label>
+		<div class="controls">
+			<input type="number" id="sleepTimeX" step="1" min="0" class="input-mini" data-bind="value: settings.plugins.EasyServo.sleepTimeX">
+		</div>
+        <span id="sleepX"></span>
+	</div>
+    <div class="control-group">
+		<label class="control-label">{{ _('Y Axis Sleep Time (ms)') }}</label>
+		<div class="controls">
+			<input type="number" id="sleepTimeY" step="1" min="0" class="input-mini" data-bind="value: settings.plugins.EasyServo.sleepTimeY">
+		</div>
+	</div>
+  </form>
+</div>
