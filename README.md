@@ -115,17 +115,25 @@ Here is the syntax of the M118 commands:
     
 ### Z-Tracking
 This new feature will track the Z position of your printer in real time when the button is locked. It will only work in absolute positioning and will update each time a movement command comporting a "Z" is performed.
+
 Before trying this feature, you have to enter the x and y offsets in the settings to let the plugin compute the angle.
+
 The xOffset correspond to the horizontal length in mm between the axis of the servo and the point that you want to track (let's say the center of the print bed)
+
 The yOffset correspond to the vertical length in mm between the eye of the camera when this last one is at 90° and this same point.
+
 ![edit service](z-track-wonderful-drawing.png)
+
 Black: Print bed
+
 Red: Target point
+
 Green: Camera
+
 Orange: Servo range (Here, the camera is at 90°)
 
 ### Custom point
-Now, you will be able to move until a point you want to save. Take for example the position of your servos when you see your spool ?
+Now, you will be able to move until a point you want to save in just one click. Take for example the position of your servos when you see your spool ?
 - Move until you see the spool
 - Hit the button "Get Current Position" in the settings in order to get the X and Y position of your servos
 - Edit your custom point just above while naming it, and setting the angle read.
