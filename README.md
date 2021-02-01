@@ -113,6 +113,8 @@ Here is the syntax of the M118 commands:
 - M118 EASYSERVOAUTOHOME <axis1> (<axis2>)
     example: M118 EASYSERVOAUTOHOME 13 12 will set both servos at their autohome angle. It is working the same way as an absolute positioning command. Note that you don't need to home both axis at the same time.
     
+Also, a "Relative Angle" has been added in the settings. This will modify the relative angle amount in order to make bigger or smaller movements between each use of the arrows.
+    
 ### Z-Tracking
 This new feature will track the Z position of your printer in real time when the button is locked. It will only work in absolute positioning and will update each time a movement command comporting a "Z" is performed.
 
