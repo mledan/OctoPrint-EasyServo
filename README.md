@@ -74,6 +74,11 @@ Since the 0.2.2, the EasyServo plugin also support the Pimoroni library.
 This library can be installed by following the steps described here: https://github.com/pimoroni/pantilt-hat/blob/master/README.md
 You will need this library if you are using the Pan-Tilt hat from Pimoroni.
 
+
+
+
+
+
 Connect the 5V and GND wires of your servos (recommended exernal power source) followed by the signal wires to the two GPIO numbers that you want to control with the plugin. The below diagram schows the servos connected to GPIO numbers 12 and 13 (the default plugin's GPIO number assignments) on a Pi 3B+.
 
 ![Servos are connected to GPIO 12 and GPIO 13](screenshot_servos_connexion.png)
