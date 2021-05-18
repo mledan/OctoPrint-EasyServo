@@ -9,7 +9,7 @@ $(function () {
     EasyServo = {};
     EasyServo.EasyServoOptions = [{name: "Pigpio", value: "pigpio"}, {name: "Pimoroni", value:"pimoroni"}];
 
-    EasyServo.EasyservoViewModel = function(parameters) {
+    function EasyservoViewModel(parameters) {
         var self = this;
 
         self.controlViewModel = parameters[0];
@@ -64,6 +64,10 @@ $(function () {
                     document.getElementById("sleep-time-y").textContent = "Y Axis Sleep Time";
                     document.getElementById("x-relative-angle").textContent = "X Relative Angle";
                     document.getElementById("y-relative-angle").textContent = "Y Relative Angle";
+                    document.getElementById("x-min-angle").textContent = "X Minimum Angle";
+                    document.getElementById("x-max-angle").textContent = "X Maximum Angle";
+                    document.getElementById("y-min-angle").textContent = "Y Minimum Angle";
+                    document.getElementById("y-max-angle").textContent = "Y Maximum Angle";
                     document.getElementById("x-absolute-label").textContent = "X Absolute";
                     document.getElementById("y-absolute-label").textContent = "Y Absolute";
                 } else {
@@ -79,6 +83,10 @@ $(function () {
                     document.getElementById("sleep-time-y").textContent = "Tilt Axis Sleep Time";
                     document.getElementById("x-relative-angle").textContent = "Pan Relative Angle";
                     document.getElementById("y-relative-angle").textContent = "Tilt Relative Angle";
+                    document.getElementById("x-min-angle").textContent = "Pan Minimum Angle";
+                    document.getElementById("x-max-angle").textContent = "Pan Maximum Angle";
+                    document.getElementById("y-min-angle").textContent = "Tilt Minimum Angle";
+                    document.getElementById("y-max-angle").textContent = "Tilt Maximum Angle";
                     document.getElementById("x-absolute-label").textContent = "Pan Absolute";
                     document.getElementById("y-absolute-label").textContent = "Tilt Absolute";
                 }
@@ -104,9 +112,7 @@ $(function () {
         }
         
         self.onDataUpdaterPluginMessage = function (plugin, data) {
-            if (plugin !== "EasyServo") {
-                return
-            } else {
+            if (plugin === "EasyServo") {
                 let angles = data.split(" ");
                 document.getElementById("currentPositionX").textContent = angles[0];
                 document.getElementById("currentPositionY").textContent = angles[1];
@@ -273,7 +279,7 @@ $(function () {
                 }
             }
         }
-        self.point4 = function(e) {
+        self.point4 = function() {
             if (boolBound) {
                 if (self.usedLibrary === 'pigpio') {
                     OctoPrint.simpleApiCommand("EasyServo", "EASYSERVO_ABS",
@@ -329,19 +335,34 @@ $(function () {
                 document.getElementById(readId).value = 180;
             }
         });
-        
+
+        let miniMaxiAngle = ["#x-min-angle", "#x-max-angle", "#y-min-angle", "#y-max-angle"];
+
+        $(miniMaxiAngle.join(",")).on("input", function (e) {
+            //let readId = e.target.id;
+            console.log(e)
+            /*if (document.getElementById(readId).value < 0 || document.getElementById(readId).value === "") {
+                document.getElementById(readId).value = 0;
+            } else if (document.getElementById(readId).value > 180) {
+                document.getElementById(readId).value = 180;
+            }*/
+        });
+
+        self.hasWebcam = ko.pureComputed(function(){
+            return !(self.settings.webcam_streamUrl().length > 0 && self.settings.webcam_webcamEnabled());
+        });
+
         self.onEventSettingsUpdated = function() {
-            self.chosenOption(document.getElementById("librarySelect").value);
-            if (document.getElementById("librarySelect").value !== self.usedLibrary) {
-            }
-            for (let p = 1; p<=5; p++) {
-                if (document.getElementById("pointName" + p).value !== "" && String(document.getElementById("xCoordinate" + p).value).length > 0
-                    && document.getElementById("xCoordinate" + p).value >= 0
-                && document.getElementById("xCoordinate" + p).value <= 180  && String(document.getElementById("yCoordinate" + p).value).length > 0
-                    && document.getElementById("yCoordinate" + p).value >= 0 && document.getElementById("yCoordinate" + p).value <= 180) {
-                    document.getElementById("control-custom-point" + p).style.display = "block";
-                } else {
-                    document.getElementById("control-custom-point" + p).style.display = "none";
+            if (self.hasWebcam) {
+                for (let p = 1; p <= 5; p++) {
+                    if (document.getElementById("pointName" + p).value !== "" && String(document.getElementById("xCoordinate" + p).value).length > 0
+                        && document.getElementById("xCoordinate" + p).value >= 0
+                        && document.getElementById("xCoordinate" + p).value <= 180 && String(document.getElementById("yCoordinate" + p).value).length > 0
+                        && document.getElementById("yCoordinate" + p).value >= 0 && document.getElementById("yCoordinate" + p).value <= 180) {
+                        document.getElementById("control-custom-point" + p).style.display = "block";
+                    } else {
+                        document.getElementById("control-custom-point" + p).style.display = "none";
+                    }
                 }
             }
         }
@@ -403,9 +424,9 @@ $(function () {
         }
     }
 
-    OCTOPRINT_VIEWMODELS.push([
-        EasyServo.EasyservoViewModel,
-        ["controlViewModel", "settingsViewModel"],
-        ["#control-jog-xy-servo"],
-    ]);
+    OCTOPRINT_VIEWMODELS.push({
+        construct: EasyservoViewModel,
+        dependencies: ["controlViewModel", "settingsViewModel"],
+        elements: ["#control-jog-xy-servo"]
+    });
 });

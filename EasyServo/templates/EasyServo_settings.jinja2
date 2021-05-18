@@ -141,6 +141,40 @@
                         </div>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="xMinAngle" class="control-label" id="x-min-angle"></label>
+                                <input id="xMinAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.xMinAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                            <div class="input-append">
+                                <label for="xMaxAngle" class="control-label" id="x-max-angle"></label>
+                                <input id="xMaxAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.xMaxAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="yMinAngle" class="control-label" id="y-min-angle"></label>
+                                <input id="yMinAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.yMinAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                            <div class="input-append">
+                                <label for="yMaxAngle" class="control-label" id="y-max-angle"></label>
+                                <input id="yMaxAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.yMaxAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr><br>
             <tr>
                 <td>
@@ -149,46 +183,46 @@
                         <div id="point1">
                             <input type="text" id="pointName1" placeholder="point 1" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point1">
                             <span class="input-append" id="spanInputX1">
-                                <input type="number" id="xCoordinate1" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1X">
+                                <input type="number" id="xCoordinate1" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1X">
                                 <span class="add-on" id="spanDeg1">°</span></span>
                             <span class="input-append" id="spanInputY1">
-                                <input type="number" id="yCoordinate1" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1Y">
+                                <input type="number" id="yCoordinate1" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1Y">
                                 <span class="add-on" id="spanDeg1">°</span></span>
                         </div>
                         <div id="point2">
                             <input type="text" id="pointName2" placeholder="point 2" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point2">
                             <span class="input-append" id="spanInputX2">
-                                <input type="number" id="xCoordinate2" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2X">
+                                <input type="number" id="xCoordinate2" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2X">
                                 <span class="add-on" id="spanDeg2">°</span></span>
                             <span class="input-append" id="spanInputY2">
-                                <input type="number" id="yCoordinate2" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2Y">
+                                <input type="number" id="yCoordinate2" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2Y">
                                 <span class="add-on" id="spanDeg2">°</span></span>
                         </div>
                         <div id="point3">
                             <input type="text" id="pointName3" placeholder="point 3" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point3">
                             <span class="input-append" id="spanInputX3">
-                                <input type="number" id="xCoordinate3" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3X">
+                                <input type="number" id="xCoordinate3" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3X">
                                 <span class="add-on" id="spanDeg3">°</span></span>
                             <span class="input-append" id="spanInputY3">
-                                <input type="number" id="yCoordinate3" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3Y">
+                                <input type="number" id="yCoordinate3" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3Y">
                                 <span class="add-on" id="spanDeg3">°</span></span>
                         </div>
                         <div id="point4">
                             <input type="text" id="pointName4" placeholder="point 4" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point4">
                             <span class="input-append" id="spanInputX4">
-                                <input type="number" id="xCoordinate4" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4X">
+                                <input type="number" id="xCoordinate4" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4X">
                                 <span class="add-on" id="spanDeg4">°</span></span>
                             <span class="input-append" id="spanInputY4">
-                                <input type="number" id="yCoordinate4" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4Y">
+                                <input type="number" id="yCoordinate4" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4Y">
                                 <span class="add-on" id="spanDeg4">°</span></span>
                         </div>
                         <div id="point5">
                             <input type="text" id="pointName5" placeholder="point 5" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point5">
                             <span class="input-append" id="spanInputX5">
-                                <input type="number" id="xCoordinate5" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5X">
+                                <input type="number" id="xCoordinate5" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5X">
                                 <span class="add-on" id="spanDeg5">°</span></span>
                             <span class="input-append" id="spanInputY5">
-                                <input type="number" id="yCoordinate5" step="1" min="0" max="180" class="number" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5Y">
+                                <input type="number" id="yCoordinate5" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5Y">
                                 <span class="add-on" id="spanDeg5">°</span></span>
                         </div>
                     </span>

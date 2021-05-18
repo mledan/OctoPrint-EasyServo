@@ -18,32 +18,32 @@
             <h1>&nbsp</h1>
             <div class="text-center">
                 <label for="xAbsoluteGroup" class="control-label" id="x-absolute-label"></label>
-                <div id="xAbsoluteGroup">
+                <div class="input-prepend input-append control-box" id="xAbsoluteGroup">
+                    <button id="control-xhome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeX());}"><i class="fa fa-home"></i></button>
                     <input type="number" id="control-xangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.xAngle">
-                    <button data-bind="click: function() { OctoPrint.control.sendGcode(xabs()); }">Go!</button>
-                    <button id="control-xhome-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeX());}"><i class="fa fa-home"></i></button>
+                    <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(xabs()); }">Go!</button>
                 </div>
             </div>
             <div class="text-center">
                 <label for="yAbsoluteGroup" class="control-label" id="y-absolute-label"></label>
-                    <div id="yAbsoluteGroup">
-                        <input type="number" id="control-yangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.yAngle">
-                        <button data-bind="click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
-                        <button id="control-yhome-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i class="fa fa-home"></i></button>
-                    </div>
+                <div class="input-prepend input-append control-box" id="yAbsoluteGroup">
+                    <button id="control-yhome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i class="fa fa-home"></i></button>
+                    <input type="number" id="control-yangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.yAngle">
+                    <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
+                </div>
             </div>
         </div>
         <div id="control-jog-z-servo" class="jog-panel">
             <h1>&nbsp</h1>
-            <div class="text-center">Z Tracking
-                <label>
-                    <button id="control-ztrack-servo" class="btn box pull-left" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(ztrack());}"></button>
-                </label>
+            <div class="text-center">
+                <label for="control-ztrack-servo" class="control-label">Z Tracking</label>
+                <button type="button" id="control-ztrack-servo" class="btn" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(ztrack());}"></button>
             </div>
         </div>
         <div id="control-custom-servo-points" class="jog-panel">
             <h1>&nbsp</h1>
-            <div class="text-center">Custom points
+            <label for="control-custom-points" class="control-label">Custom points</label>
+            <div class="text-center" id="control-custom-points">
                 <label>
                     <button id="control-custom-point1" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point1, click: function() { OctoPrint.control.sendGcode(point1());}"></button>
                 </label>
