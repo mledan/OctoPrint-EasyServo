@@ -158,31 +158,21 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 	##~~ Softwareupdate hook
 
 	def get_update_information(self):
-		return {
-			"easy_servo": {
-				"displayName": "Easy Servo",
-				"displayVersion": self._plugin_version,
+		return dict(
+			EasyServo=dict(
+				displayName="Easy Servo",
+				displayVersion=self._plugin_version,
+
 				# version check: github repository
-				"type": "github_release",
-				"user": "iFrostizz",
-				"repo": "OctoPrint-EasyServo",
-				"current": self._plugin_version,
-				"stable_branch": {
-					"name": "Stable",
-					"branch": "master",
-					"comittish": ["master"],
-				},
-				"prerelease_branches": [
-					{
-						"name": "Development",
-						"branch": "devel",
-						"comittish": ["devel", "master"],
-					}
-				],
+				type="github_release",
+				user="iFrostizz",
+				repo="OctoPrint-EasyServo",
+				current=self._plugin_version,
+
 				# update method: pip
-				"pip": "https://github.com/iFrostizz/OctoPrint-EasyServo/archive/{target_version}.zip",
-			}
-		}
+				pip="https://github.com/iFrostizz/OctoPrint-EasyServo/archive/{target_version}.zip"
+			)
+		)
 
 	##~~ Utility functions
 
