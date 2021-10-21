@@ -226,7 +226,7 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			actual_angle = self.width_to_angle(actual_width)
 			width_to_reach = self.angle_to_width(angle_to_reach)
 
-		self._logger.info("pin {} actual_width {} actual_angle {} width_to_reach {} angle_to_reach {}".format(pin, actual_width, actual_angle, width_to_reach, angle_to_reach))
+		# self._logger.info("pin {} actual_width {} actual_angle {} width_to_reach {} angle_to_reach {}".format(pin, actual_width, actual_angle, width_to_reach, angle_to_reach))
 
 		if width_to_reach - actual_width >= 0:
 			incrementSign = 1
@@ -247,8 +247,8 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 				break
 
 			self.pi.set_servo_pulsewidth(int(pin), x)
-			if x % 10 == 0:
-				self._logger.info("Setting the width of the pin {} at {} us".format(int(pin), x))
+			"""if x % 10 == 0:
+				self._logger.info("Setting the width of the pin {} at {} us".format(int(pin), x))"""
 
 	def move_servo_to_ang_pimoroni(self, axis, angle_to_reach):
 		if axis == "PAN":
@@ -337,7 +337,7 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			angle_to_reach = actual_angle + angle_difference
 			width_to_reach = self.angle_to_width(angle_to_reach)
 
-		self._logger.info("pin {} actual_width {} actual_angle {} angle_difference {} width_to_reach {} angle_to_reach {}".format(pin, actual_width, actual_angle, angle_difference, width_to_reach, angle_to_reach))
+		# self._logger.info("pin {} actual_width {} actual_angle {} angle_difference {} width_to_reach {} angle_to_reach {}".format(pin, actual_width, actual_angle, angle_difference, width_to_reach, angle_to_reach))
 
 		if width_to_reach - actual_width >= 0:
 			incrementSign = 1
@@ -357,8 +357,8 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 				break
 
 			self.pi.set_servo_pulsewidth(int(pin), x)
-			if x % 10 == 0:
-				self._logger.info("Setting the width of the pin {} at {} us".format(int(pin), x))
+			"""if x % 10 == 0:
+				self._logger.info("Setting the width of the pin {} at {} us".format(int(pin), x))"""
 			time.sleep(sleepTime / 1000)
 
 	def move_servo_by_pimoroni(self, axis, angle_difference):  # Relative positioning
@@ -549,7 +549,7 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 		return line
 
 	def read_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
-		self._logger.info(cmd)
+		# self._logger.info(cmd)
 		if ((cmd.startswith("G0") or cmd.startswith("G1")) and "Z" in cmd) and self._settings.get_boolean(
 			["lockState"]) == True:
 			# self._logger.info(cmd)
