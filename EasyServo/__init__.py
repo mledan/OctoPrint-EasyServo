@@ -49,7 +49,7 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			xAngle="90",
 			yAngle="90",
 			xOffsetBed="50",
-			yOffsetBed="20",
+			yOffsetOverBed="20",
 			yOffsetUnderBed="20",
 			lockState="false",
 			point1="",
@@ -238,11 +238,15 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			width_current = self.pi.get_servo_pulsewidth(int(pin))
 
 			if width_current > self.angle_to_width(maxAngle):
-				self._logger.info("GPIO {} reached his boundaries with a {} pulse width = {}°".format(pin, width_current, angle_to_reach))
+				self._logger.info(
+					"GPIO {} reached his boundaries with a {} pulse width = {}°".format(pin, width_current,
+																						angle_to_reach))
 				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(maxAngle) - 10)
 				break
 			elif width_current < self.angle_to_width(minAngle):
-				self._logger.info("GPIO {} reached his boundaries with a {} pulse width = {}°".format(pin, width_current, angle_to_reach))
+				self._logger.info(
+					"GPIO {} reached his boundaries with a {} pulse width = {}°".format(pin, width_current,
+																						angle_to_reach))
 				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(minAngle) + 10)
 				break
 
@@ -348,11 +352,17 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			width_current = self.pi.get_servo_pulsewidth(int(pin))
 
 			if width_current > self.angle_to_width(maxAngle):
-				self._logger.info("GPIO {} reached his boundaries with a {} pulse width, max is {}".format(pin, width_current, self.angle_to_width(maxAngle)))
+				self._logger.info(
+					"GPIO {} reached his boundaries with a {} pulse width, max is {}".format(pin, width_current,
+																							 self.angle_to_width(
+																								 maxAngle)))
 				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(maxAngle) - 10)
 				break
 			elif width_current < self.angle_to_width(minAngle):
-				self._logger.info("GPIO {} reached his boundaries with a {} pulse width, min is {}".format(pin, width_current, self.angle_to_width(minAngle)))
+				self._logger.info(
+					"GPIO {} reached his boundaries with a {} pulse width, min is {}".format(pin, width_current,
+																							 self.angle_to_width(
+																								 minAngle)))
 				self.pi.set_servo_pulsewidth(int(pin), self.angle_to_width(minAngle) + 10)
 				break
 
@@ -572,10 +582,10 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 
 	def calculateAngle(self, zHeight):
 		xOffsetBed = self._settings.get_int(["xOffsetBed"])
-		yOffsetBed = self._settings.get_int(["yOffsetBed"])
+		yOffsetOverBed = self._settings.get_int(["yOffsetOverBed"])
 		yMinusOffsetBed = self._settings.get_int(["yOffsetUnderBed"])
 		zValue = zHeight + yMinusOffsetBed
-		yTiltLength = yOffsetBed + yMinusOffsetBed
+		yTiltLength = yOffsetOverBed + yMinusOffsetBed
 
 		angle = math.degrees(math.acos((math.pow(yTiltLength, 2) - math.pow(zValue, 2)) / (
 			xOffsetBed * yTiltLength + zValue * math.sqrt(

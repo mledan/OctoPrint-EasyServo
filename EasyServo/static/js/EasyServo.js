@@ -25,6 +25,7 @@ $(function () {
         self.plugin_settings = null;
 
         let isToggled
+        let isGetPositionToggled
         let boolBound = false
 
         self.onBeforeBinding = function () {
@@ -51,6 +52,12 @@ $(function () {
                 parent.insertBefore(spanText, libraryText);
                 parent.insertBefore(document.createElement("br"), table);
                 parent.insertBefore(document.createElement("br"), table);
+
+                isGetPositionToggled = JSON.parse(response.enableCurrentPositionControl);
+                let getCurrentPositionButton = document.createElement("button")
+                getCurrentPositionButton.type = "button"
+                getCurrentPositionButton.className = "btn btn-primary"
+                getCurrentPositionButton.textContent = "Get Current Position"
 
                 if (self.usedLibrary === 'pigpio') {
                     document.getElementById("thirdTabEasyServo").style.display = "none";
