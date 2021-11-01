@@ -158,7 +158,7 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="xRelativeAngle" class="control-label" id="x-relative-angle"></label>
+                                <label for="xRelativeAngle" class="control-label" id="x-relative-angle">{{ _('X Relative Angle') }}</label>
                                 <input id="xRelativeAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.xRelativeAngle">
                                 <span class="add-on">°</span>
@@ -170,7 +170,7 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yRelativeAngle" class="control-label" id="y-relative-angle"></label>
+                                <label for="yRelativeAngle" class="control-label" id="y-relative-angle">{{ _('Y Relative Angle') }}</label>
                                 <input id="yRelativeAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.yRelativeAngle">
                                 <span class="add-on">°</span>
@@ -184,13 +184,13 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="xMinAngle" class="control-label" id="x-min-angle"></label>
+                                <label for="xMinAngle" class="control-label" id="x-min-angle">{{ _('X Minimum Angle') }}</label>
                                 <input id="xMinAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.xMinAngle">
                                 <span class="add-on">°</span>
                             </div>
                             <div class="input-append">
-                                <label for="xMaxAngle" class="control-label" id="x-max-angle"></label>
+                                <label for="xMaxAngle" class="control-label" id="x-max-angle">{{ _('X Maximum Angle') }}</label>
                                 <input id="xMaxAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.xMaxAngle">
                                 <span class="add-on">°</span>
@@ -202,13 +202,13 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yMinAngle" class="control-label" id="y-min-angle"></label>
+                                <label for="yMinAngle" class="control-label" id="y-min-angle">{{ _('Y Minimum Angle') }}</label>
                                 <input id="yMinAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.yMinAngle">
                                 <span class="add-on">°</span>
                             </div>
                             <div class="input-append">
-                                <label for="yMaxAngle" class="control-label" id="y-max-angle"></label>
+                                <label for="yMaxAngle" class="control-label" id="y-max-angle">{{ _('Y Maximum Angle') }}</label>
                                 <input id="yMaxAngle" type="number" step="1" min="0" max="180" class="input-mini"
                                        data-bind="value: settings.plugins.EasyServo.yMaxAngle">
                                 <span class="add-on">°</span>
@@ -291,7 +291,7 @@
                     </button>
                     <span>X: <span id="currentPositionX"></span> Y: <span id="currentPositionY"></span></span>
                     <label for="enable-current-position-control"
-                           class="checkbox inline">{{ _('Enable this on control tab') }}</label>
+                           class="checkbox inline">{{ _('Enable this on control tab (soon)') }}</label>
                     <input id="enable-current-position-control" type="checkbox"
                            data-bind="checked: settings.plugins.EasyServo.enableCurrentPositionControl">
                 </td>
