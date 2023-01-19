@@ -14,11 +14,11 @@ plugin_package = "EasyServo"
 plugin_name = "Easy Servo"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.2.3"
+plugin_version = "0.2.4"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = "Here is a small plugin so you can control some Servo motors using the octoprint interface"
+plugin_description = "Here is a growing plugin you can use to easily control Servo motors using the octoprint interface"
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
 plugin_author = "iFrostizz"
@@ -33,7 +33,7 @@ plugin_url = "https://github.com/iFrostizz/OctoPrint-EasyServo"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["pigpio", "pantilthat"]
+plugin_requires = ["pigpio", "pantilthat", "sparkfun-pi-servo-hat"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

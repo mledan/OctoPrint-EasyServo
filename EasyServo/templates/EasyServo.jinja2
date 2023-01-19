@@ -1,5 +1,5 @@
 <div id="control-easy-servo-wrapper">
-    <div id="control-jog-xy-servo">
+    <div id="control-jog-xyz-servo">
         <div id="control-jog-rel-servo" class="jog-panel">
             <h1>Easy Servo</h1>
             <div class="text-center">
@@ -12,6 +12,18 @@
             </div>
             <div class="text-center">
                 <button id="control-ydec-servo" class="btn box" data-bind="click: function() { OctoPrint.control.sendGcode(down()); }"><i class="fa fa-arrow-down"></i></button>
+            </div>
+        </div>
+        <div id="control-jog-rel-servo-third-motor" class="jog-panel">
+            <h1>Easy Servo</h1>
+            <div class="text-center">
+                <button id="control-zinc-servo" class="btn box" data-bind="click: function() { OctoPrint.control.sendGcode(upz()); }"><i class="fa fa-arrow-up"></i></button>
+            </div>
+            <div class="text-center">
+                <button id="control-zhome-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(autoHome());}"><i class="fa fa-home"></i></button>
+            </div>
+            <div class="text-center">
+                <button id="control-zdec-servo" class="btn box" data-bind="click: function() { OctoPrint.control.sendGcode(downz()); }"><i class="fa fa-arrow-down"></i></button>
             </div>
         </div>
         <div id="control-jog-abs-servo" class="jog-panel">
@@ -30,6 +42,14 @@
                     <button id="control-yhome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i class="fa fa-home"></i></button>
                     <input type="number" id="control-yangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.yAngle">
                     <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
+                </div>
+            </div>
+            <div class="text-center">
+                <label for="zAbsoluteGroup" class="control-label" id="z-absolute-label"></label>
+                <div class="input-prepend input-append control-box" id="zAbsoluteGroup">
+                    <button id="control-zeehome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeZ());}"><i class="fa fa-home"></i></button>
+                    <input type="number" id="control-zangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.zAngle">
+                    <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(zabs()); }">Go!</button>
                 </div>
             </div>
         </div>

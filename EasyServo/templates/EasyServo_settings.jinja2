@@ -4,7 +4,423 @@
         <form class="form" id="settings_plugin_EasyServo_form">
             <tr>
                 <td>
-                    <div class="control-group" id="firstTabEasyServo">
+                    <div class="control-group" id="ch0minTab">
+                        <div class="controls" id="CH0min-div">
+                            <label for="CH0min" class="control-label" id="gpio-number-0-min"></label>
+                            <input id="CH0min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH0min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch0Tab">
+                        <div class="controls" id="CH0-div">
+                            <label for="CH0" class="control-label" id="gpio-number-0"></label>
+                            <input id="CH0" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH0">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch0maxTab">
+                        <div class="controls" id="CH0max-div">
+                            <label for="CH0max" class="control-label" id="gpio-number-0-max"></label>
+                            <input id="CH0max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH0max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch1minTab">
+                        <div class="controls" id="CH1min-div">
+                            <label for="CH1min" class="control-label" id="gpio-number-1-min"></label>
+                            <input id="CH1min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH1min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch1Tab">
+                        <div class="controls" id="CH1-div">
+                            <label for="CH1" class="control-label" id="gpio-number-1"></label>
+                            <input id="CH1" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH1">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch1maxTab">
+                        <div class="controls" id="CH1max-div">
+                            <label for="CH1max" class="control-label" id="gpio-number-1-max"></label>
+                            <input id="CH1max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH1max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch2minTab">
+                        <div class="controls" id="CH2min-div">
+                            <label for="CH2min" class="control-label" id="gpio-number-2-min"></label>
+                            <input id="CH2min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH2min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch2Tab">
+                        <div class="controls" id="CH2-div">
+                            <label for="CH2" class="control-label" id="gpio-number-2"></label>
+                            <input id="CH2" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH2">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch2axTab">
+                        <div class="controls" id="CH2max-div">
+                            <label for="CH2max" class="control-label" id="gpio-number-2-max"></label>
+                            <input id="CH2max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH2max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch3minTab">
+                        <div class="controls" id="CH3min-div">
+                            <label for="CH3min" class="control-label" id="gpio-number-3-min"></label>
+                            <input id="CH3min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH3min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch3Tab">
+                        <div class="controls" id="CH3-div">
+                            <label for="CH3" class="control-label" id="gpio-number-3"></label>
+                            <input id="CH3" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH3">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch3maxTab">
+                        <div class="controls" id="CH3max-div">
+                            <label for="CH3max" class="control-label" id="gpio-number-3-max"></label>
+                            <input id="CH3max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH3max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch4minTab">
+                        <div class="controls" id="CH4min-div">
+                            <label for="CH4min" class="control-label" id="gpio-number-4-min"></label>
+                            <input id="CH4min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH4min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch4Tab">
+                        <div class="controls" id="CH4-div">
+                            <label for="CH4" class="control-label" id="gpio-number-4"></label>
+                            <input id="CH4" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH4">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch4maxTab">
+                        <div class="controls" id="CH4max-div">
+                            <label for="CH4max" class="control-label" id="gpio-number-4-max"></label>
+                            <input id="CH4max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH4max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch5minTab">
+                        <div class="controls" id="CH5min-div">
+                            <label for="CH5min" class="control-label" id="gpio-number-5-min"></label>
+                            <input id="CH5min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH5min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch5Tab">
+                        <div class="controls" id="CH5-div">
+                            <label for="CH5" class="control-label" id="gpio-number-5"></label>
+                            <input id="CH5" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH5">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch5maxTab">
+                        <div class="controls" id="CH5max-div">
+                            <label for="CH5max" class="control-label" id="gpio-number-5-max"></label>
+                            <input id="CH5max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH5max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch6minTab">
+                        <div class="controls" id="CH6min-div">
+                            <label for="CH6min" class="control-label" id="gpio-number-6-min"></label>
+                            <input id="CH6min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH6min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch6Tab">
+                        <div class="controls" id="CH6-div">
+                            <label for="CH6" class="control-label" id="gpio-number-6"></label>
+                            <input id="CH6" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH6">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch6maxTab">
+                        <div class="controls" id="CH6max-div">
+                            <label for="CH6max" class="control-label" id="gpio-number-6-max"></label>
+                            <input id="CH6max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH6max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch7minTab">
+                        <div class="controls" id="CH7min-div">
+                            <label for="CH7min" class="control-label" id="gpio-number-7-min"></label>
+                            <input id="CH7min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH7min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch7Tab">
+                        <div class="controls" id="CH7-div">
+                            <label for="CH7" class="control-label" id="gpio-number-7"></label>
+                            <input id="CH7" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH7">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch7maxTab">
+                        <div class="controls" id="CH7max-div">
+                            <label for="CH7max" class="control-label" id="gpio-number-7-max"></label>
+                            <input id="CH7max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH7max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch8minTab">
+                        <div class="controls" id="CH8min-div">
+                            <label for="CH8min" class="control-label" id="gpio-number-8-min"></label>
+                            <input id="CH8min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH8min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch8Tab">
+                        <div class="controls" id="CH8-div">
+                            <label for="CH8" class="control-label" id="gpio-number-8"></label>
+                            <input id="CH8" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH8">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch8maxTab">
+                        <div class="controls" id="CH8max-div">
+                            <label for="CH8max" class="control-label" id="gpio-number-8-max"></label>
+                            <input id="CH8max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH8max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch9minTab">
+                        <div class="controls" id="CH9min-div">
+                            <label for="CH9min" class="control-label" id="gpio-number-9-min"></label>
+                            <input id="CH9min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH9min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch9Tab">
+                        <div class="controls" id="CH9-div">
+                            <label for="CH9" class="control-label" id="gpio-number-9"></label>
+                            <input id="CH9" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH9">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch9maxTab">
+                        <div class="controls" id="CH9max-div">
+                            <label for="CH9max" class="control-label" id="gpio-number-9-max"></label>
+                            <input id="CH9max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH9max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch10minTab">
+                        <div class="controls" id="CH10min-div">
+                            <label for="CH10min" class="control-label" id="gpio-number-10-min"></label>
+                            <input id="CH10min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH10min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch10Tab">
+                        <div class="controls" id="CH10-div">
+                            <label for="CH10" class="control-label" id="gpio-number-10"></label>
+                            <input id="CH10" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH10">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch10maxTab">
+                        <div class="controls" id="CH10max-div">
+                            <label for="CH10max" class="control-label" id="gpio-number-10-max"></label>
+                            <input id="CH10max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH10max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch11minTab">
+                        <div class="controls" id="CH11min-div">
+                            <label for="CH11min" class="control-label" id="gpio-number-11-min"></label>
+                            <input id="CH11min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH11min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch11Tab">
+                        <div class="controls" id="CH11-div">
+                            <label for="CH11" class="control-label" id="gpio-number-11"></label>
+                            <input id="CH11" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH11">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch11maxTab">
+                        <div class="controls" id="CH11max-div">
+                            <label for="CH11max" class="control-label" id="gpio-number-11-max"></label>
+                            <input id="CH11max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH11max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch12minTab">
+                        <div class="controls" id="CH12min-div">
+                            <label for="CH12min" class="control-label" id="gpio-number-12-min"></label>
+                            <input id="CH12min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH12min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch12Tab">
+                        <div class="controls" id="CH12-div">
+                            <label for="CH12" class="control-label" id="gpio-number-12"></label>
+                            <input id="CH12" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH12">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch12maxTab">
+                        <div class="controls" id="CH12max-div">
+                            <label for="CH12max" class="control-label" id="gpio-number-12-max"></label>
+                            <input id="CH12max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH12max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch13minTab">
+                        <div class="controls" id="CH13min-div">
+                            <label for="CH13min" class="control-label" id="gpio-number-13-min"></label>
+                            <input id="CH13min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH13min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch13Tab">
+                        <div class="controls" id="CH13-div">
+                            <label for="CH13" class="control-label" id="gpio-number-13"></label>
+                            <input id="CH13" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH13">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch13maxTab">
+                        <div class="controls" id="CH13max-div">
+                            <label for="CH13max" class="control-label" id="gpio-number-13-max"></label>
+                            <input id="CH13max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH13max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch14minTab">
+                        <div class="controls" id="CH14min-div">
+                            <label for="CH14min" class="control-label" id="gpio-number-14-min"></label>
+                            <input id="CH14min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH14min">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch14Tab">
+                        <div class="controls" id="CH14-div">
+                            <label for="CH14" class="control-label" id="gpio-number-14"></label>
+                            <input id="CH14" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH14">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch14maxTab">
+                        <div class="controls" id="CH14max-div">
+                            <label for="CH14max" class="control-label" id="gpio-number-14-max"></label>
+                            <input id="CH14max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH14max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group" id="ch15minTab">
+                        <div class="controls" id="CH15min-div">
+                            <label for="CH15min" class="control-label" id="gpio-number-15-min"></label>
+                            <input id="CH15min" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH15min">
+                        </div>
+                    </div>
+                </td>
+                   <td>
+                    <div class="control-group" id="ch15Tab">
+                        <div class="controls" id="CH15-div">
+                            <label for="CH15" class="control-label" id="gpio-number-15"></label>
+                            <input id="CH15" type="range" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH15">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="ch15maxTab">
+                        <div class="controls" id="CH15max-div">
+                            <label for="CH15max" class="control-label" id="gpio-number-15-max"></label>
+                            <input id="CH15max" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.CH15max">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>                                                                                                                                                  
+                <td>
+                    <div class="control-group" id="xAxisGpioTab">
                         <div class="controls" id="GPIOX-div">
                             <label for="GPIOX" class="control-label" id="gpio-number-x"></label>
                             <input id="GPIOX" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.GPIOX">
@@ -12,10 +428,18 @@
                     </div>
                 </td>
                 <td>
-                    <div class="control-group" id="secondTabEasyServo">
+                    <div class="control-group" id="yAxisGpioTab">
                         <div class="controls">
                             <label for="GPIOY" class="control-label" id="gpio-number-y"></label>
                             <input id="GPIOY" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.GPIOY">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="zAxisGpioTab">
+                        <div class="controls">
+                            <label for="GPIOZ" class="control-label" id="gpio-number-z"></label>
+                            <input id="GPIOZ" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.GPIOZ">
                         </div>
                     </div>
                 </td>
@@ -43,6 +467,17 @@
                         </div>
                     </div>
                 </td>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="zAutoAngle" class="control-label" id="autohome-angle-z">{{ _('Z AutoHome Angle') }}</label>
+                                <input id="zAutoAngle" type="number" class="input-mini" data-bind="value: settings.plugins.EasyServo.zAutoAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr><!--<br>-->
             <tr>
                 <td>
@@ -62,7 +497,15 @@
                     </div>
                 </td>
                 <td>
-                    <div class="control-group" id="thirdTabEasyServo">
+                    <div class="control-group">
+                        <div class="control">
+                            <label for="zInvert" class="control-label" id="axis-inversion-z">{{ _('Z Axis Inversion') }}</label>
+                            <input id="zInvert" type="checkbox" class="input-block-level" data-bind="checked: settings.plugins.EasyServo.zInvert">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group" id="axisInversionTab">
                         <div class="controls">
                             <label for="axisInvert" class="control-label">{{ _('Pan/Tilt Axis Inversion') }}</label>
                             <input id="axisInvert" type="checkbox" class="input-block-level" data-bind="checked: settings.plugins.EasyServo.axisInvert">
@@ -88,6 +531,17 @@
                             <div class="input-append">
                                 <label for="sleepTimeY" class="control-label" id="sleep-time-y">{{ _('Y Axis Sleep Time') }}</label>
                                 <input id="sleepTimeY" type="number" step="1" min="0" class="input-mini" data-bind="value: settings.plugins.EasyServo.sleepTimeY">
+                                <span class="add-on">ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="sleepTimeZ" class="control-label" id="sleep-time-z">{{ _('Z Axis Sleep Time') }}</label>
+                                <input id="sleepTimeZ" type="number" step="1" min="0" class="input-mini" data-bind="value: settings.plugins.EasyServo.sleepTimeZ">
                                 <span class="add-on">ms</span>
                             </div>
                         </div>
@@ -141,6 +595,17 @@
                         </div>
                     </div>
                 </td>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="zRelativeAngle" class="control-label" id="z-relative-angle"></label>
+                                <input id="zRelativeAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.zRelativeAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -175,6 +640,22 @@
                         </div>
                     </div>
                 </td>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="zMinAngle" class="control-label" id="z-min-angle"></label>
+                                <input id="zMinAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.zMinAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                            <div class="input-append">
+                                <label for="zMaxAngle" class="control-label" id="z-max-angle"></label>
+                                <input id="zMaxAngle" type="number" step="1" min="0" max="180" class="input-mini" data-bind="value: settings.plugins.EasyServo.zMaxAngle">
+                                <span class="add-on">°</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr><br>
             <tr>
                 <td>
@@ -188,6 +669,9 @@
                             <span class="input-append" id="spanInputY1">
                                 <input type="number" id="yCoordinate1" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1Y">
                                 <span class="add-on" id="spanDeg1">°</span></span>
+                            <span class="input-append" id="spanInputZ1">
+                                <input type="number" id="zCoordinate1" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1Z">
+                                <span class="add-on" id="spanDeg1">°</span></span>
                         </div>
                         <div id="point2">
                             <input type="text" id="pointName2" placeholder="point 2" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point2">
@@ -196,6 +680,9 @@
                                 <span class="add-on" id="spanDeg2">°</span></span>
                             <span class="input-append" id="spanInputY2">
                                 <input type="number" id="yCoordinate2" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2Y">
+                                <span class="add-on" id="spanDeg2">°</span></span>
+                            <span class="input-append" id="spanInputZ2">
+                                <input type="number" id="zCoordinate2" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2Z">
                                 <span class="add-on" id="spanDeg2">°</span></span>
                         </div>
                         <div id="point3">
@@ -206,6 +693,9 @@
                             <span class="input-append" id="spanInputY3">
                                 <input type="number" id="yCoordinate3" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3Y">
                                 <span class="add-on" id="spanDeg3">°</span></span>
+                            <span class="input-append" id="spanInputZ3">
+                                <input type="number" id="zCoordinate3" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3Z">
+                                <span class="add-on" id="spanDeg2">°</span></span>
                         </div>
                         <div id="point4">
                             <input type="text" id="pointName4" placeholder="point 4" style="width: 80px;" data-bind="value: settings.plugins.EasyServo.point4">
@@ -214,6 +704,9 @@
                                 <span class="add-on" id="spanDeg4">°</span></span>
                             <span class="input-append" id="spanInputY4">
                                 <input type="number" id="yCoordinate4" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4Y">
+                                <span class="add-on" id="spanDeg4">°</span></span>
+                            <span class="input-append" id="spanInputZ4">
+                                <input type="number" id="zCoordinate4" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4Z">
                                 <span class="add-on" id="spanDeg4">°</span></span>
                         </div>
                         <div id="point5">
@@ -224,10 +717,17 @@
                             <span class="input-append" id="spanInputY5">
                                 <input type="number" id="yCoordinate5" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5Y">
                                 <span class="add-on" id="spanDeg5">°</span></span>
+                            <span class="input-append" id="spanInputZ5">
+                                <input type="number" id="zCoordinate5" step="1" min="0" max="180" class="input-mini" style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5Z">
+                                <span class="add-on" id="spanDeg5">°</span></span>
                         </div>
                     </span>
                     <button id="get-current-position" type="button" class="btn btn-primary">Get Current Position</button>
-                    <span>X: <span id="currentPositionX"></span> Y: <span id="currentPositionY"></span></span>
+                    <span>
+                        X: <span id="currentPositionX"></span> 
+                        Y: <span id="currentPositionY"></span>
+                        Z: <span id="currentPositionZ"></span>
+                    </span>
                 </td>
             </tr><br>
             <tr>
