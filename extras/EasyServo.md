@@ -4,14 +4,14 @@ layout: plugin
 id: EasyServo
 title: Easy Servo
 description: Plugin to control two servos attached to a camera gimbal to control motion.
-author: mledan, iFrostizz, jneilliii
+author: iFrostizz, jneilliii
 license: AGPLv3
 
-date: 2023-01-29
+date: 2020-05-21
 
-homepage: https://github.com/mledan/OctoPrint-EasyServo
-source: https://github.com/mledan/OctoPrint-EasyServo
-archive: https://github.com/mledan/EasyServo/archive/master.zip
+homepage: https://github.com/iFrostizz/OctoPrint-EasyServo
+source: https://github.com/iFrostizz/OctoPrint-EasyServo
+archive: https://github.com/iFrostizz/EasyServo/archive/master.zip
 
 tags:
 - GPIO
@@ -39,9 +39,6 @@ Example: `@EASYSERVO 12 10` will move the servo attached to GPIO 12 10 degrees i
 
 **Note:** The servos will initialize at 90 degrees on OctoPrint start up and is limited to a 90 degree rotation in either direction.
 
-# Road Map
-
-
 ## Pre-Installation Requirements
 
 Please follow the instructions [here](https://github.com/jneilliii/OctoPrint-EasyServo#pre-installation-requirements) in order for this plugin to properly operate. Without these steps the plugin will not be able to control the GPIO pins on your Pi and as a result the servos will not move.
@@ -54,5 +51,6 @@ The plugin supports the ability to configure the GPIO number used for controllin
 
 ### Disclaimer
 
-Although the Authors use this plugin without issues, You take resposiblity for any damage caused by using this plugin or connecting servos to your own Pi. Please make sure to do your reseach and understand the dangers and please be careful. It's recomended to power servos externally to prevent performance issues on your pi and make sure all your minimum and maximum angle boundaries are set correctly. 
+Although I, iFrostizz, use this plugin and it works for me without issues, I take no resposiblity for any damage caused by using this plugin or connecting servos to your Pi. Please make sure to do your reseach and understand the dangers and please be careful.
+
 
