@@ -165,12 +165,12 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 
 				# version check: github repository
 				type="github_release",
-				user="iFrostizz",
+				user="mledan",
 				repo="OctoPrint-EasyServo",
 				current=self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/iFrostizz/OctoPrint-EasyServo/archive/{target_version}.zip"
+				pip="https://github.com/mledan/OctoPrint-EasyServo/archive/{target_version}.zip"
 			)
 		)
 
