@@ -14,20 +14,20 @@ plugin_package = "EasyServo"
 plugin_name = "Easy Servo"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.2.3"
+plugin_version = "0.2.4"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = "Here is a small plugin so you can control some Servo motors using the octoprint interface"
+plugin_description = "Here is a growing plugin you can use to easily control servo motors using the octoprint interface"
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "iFrostizz"
+plugin_author = "iFrostizz, mledan"
 
 # The plugin's author's mail address.
-plugin_author_email = "fgg67@hotmail.fr"
+plugin_author_email = "mlad89@gmail.com"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/iFrostizz/OctoPrint-EasyServo"
+plugin_url = "https://github.com/mledan/OctoPrint-EasyServo"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "AGPLv3"

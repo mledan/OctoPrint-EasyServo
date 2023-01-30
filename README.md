@@ -1,8 +1,8 @@
-# ⚠️ This plugin is not under active development anymore, I am working on other projects but will come back to Octoprint plugins later ! Please don't expect a quick answer nor a fix from me during this period. ⚠️
+# ⚠️ 2023 RoadMap Coming Soon ⚠️
 
 # Easy Servo
 
-Here is a simple plugin to control two servos using the OctoPrint Control tab. It has been programmed in conjuction with a camera gimbal mount design I published on Thingiverse [here](https://www.thingiverse.com/thing:4381240).
+Here is a growing plugin you can use to easily control multiple servo motors using the octoprint interface. It has been programmed in conjuction with a camera gimbal mount design iFrostizz published on Thingiverse [here](https://www.thingiverse.com/thing:4381240).
 
 It utilizes the SimpleApiPlugin from Octoprint in order to send commands to the GPIO pins.
 
@@ -95,7 +95,7 @@ Use the chart below to identify the GPIO numbers to use in the plugin's settings
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
 or manually using this URL:
 
-    https://github.com/iFrostizz/OctoPrint-EasyServo/archive/master.zip
+    https://github.com/mledan/OctoPrint-EasyServo/archive/master.zip
 
 ## Settings
 
@@ -147,4 +147,4 @@ Now, you will be able to move until a point you want to save in just one click. 
 
 ### Disclaimer
 
-Although I have used this plugin and it has worked for me without issues, I take no resposiblity for any damage caused by using this plugin or connecting servos to your Pi. Please make sure to do your reseach and understand the dangers and please be careful.
+Although the Authors use this plugin without issues, You take resposiblity for any damage caused by using this plugin or connecting servos to your own Pi. Please make sure to do your reseach and understand the dangers and please be careful. It's recomended to power servos externally to prevent performance issues on your pi and make sure all your minimum and maximum angle boundaries are set correctly. 

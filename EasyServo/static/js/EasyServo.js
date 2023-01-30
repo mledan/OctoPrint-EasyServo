@@ -14,7 +14,7 @@ $(function () {
 
         self.controlViewModel = parameters[0];
         self.settingsViewModel = parameters[1];
-        
+
         self.chosenOption = ko.observable();
         self.point1 = ko.observable();
         self.point2 = ko.observable();
@@ -23,10 +23,11 @@ $(function () {
         self.point5 = ko.observable();
 
         self.plugin_settings = null;
-        
+
         let isToggled
+        let isGetPositionToggled
         let boolBound = false
-        
+
         self.onBeforeBinding = function () {
             $("#control-easy-servo-wrapper").insertAfter("#control-jog-custom");
             self.plugin_settings = self.settingsViewModel.settings.plugins.EasyServo;
@@ -36,7 +37,7 @@ $(function () {
             self.point3(self.plugin_settings.point3());
             self.point4(self.plugin_settings.point4());
             self.point5(self.plugin_settings.point5());
-            
+
             OctoPrint.settings.getPluginSettings("EasyServo").done(function(response) {
                 self.usedLibrary = response.libraryUsed
                 let table = document.getElementById('settings_plugin_EasyServo_table');
@@ -51,7 +52,13 @@ $(function () {
                 parent.insertBefore(spanText, libraryText);
                 parent.insertBefore(document.createElement("br"), table);
                 parent.insertBefore(document.createElement("br"), table);
-                
+
+                isGetPositionToggled = JSON.parse(response.enableCurrentPositionControl);
+                let getCurrentPositionButton = document.createElement("button")
+                getCurrentPositionButton.type = "button"
+                getCurrentPositionButton.className = "btn btn-primary"
+                getCurrentPositionButton.textContent = "Get Current Position"
+
                 if (self.usedLibrary === 'pigpio') {
                     document.getElementById("thirdTabEasyServo").style.display = "none";
                     document.getElementById("gpio-number-x").textContent = "X Axis GPIO Number";
@@ -92,8 +99,9 @@ $(function () {
                 }
             });
         };
-        
+
         self.onAfterBinding = function () {
+            // console.log("yop")
             boolBound = true //Check to see if everything is already bound
             OctoPrint.settings.getPluginSettings('EasyServo').done(function(response) {
                 isToggled = JSON.parse(response.lockState);
@@ -110,7 +118,7 @@ $(function () {
                 }
             }
         }
-        
+
         self.onDataUpdaterPluginMessage = function (plugin, data) {
             if (plugin === "EasyServo") {
                 let angles = data.split(" ");
@@ -118,7 +126,7 @@ $(function () {
                 document.getElementById("currentPositionY").textContent = angles[1];
             }
         }
-    
+
         self.autoHome = function(){
             if (boolBound) {
                 if (self.usedLibrary === 'pigpio') {
@@ -128,7 +136,7 @@ $(function () {
                     OctoPrint.simpleApiCommand("EasyServo", "EASYSERVOAUTOHOME",
                         {"pin1": "PAN", "pin2": "TILT"})
                 }
-    
+
             }
         };
 
@@ -227,13 +235,13 @@ $(function () {
                 }
             }
         };
-        
+
         self.ztrack = function() {
             isToggled = !isToggled;
             setLockingState(isToggled);
             OctoPrint.settings.savePluginSettings('EasyServo', {"lockState": isToggled})
         }
-        
+
         self.point1 = function() {
             if (boolBound) {
                 if (self.usedLibrary === 'pigpio') {
@@ -309,11 +317,11 @@ $(function () {
                 }
             }
         }
-        
+
         document.getElementById("get-current-position").onclick = function() {
             OctoPrint.simpleApiCommand("EasyServo", "EASYSERVO_GET_POSITION")
         }
-        
+
         let restrictedIds = ["#control-xangle", "#control-yangle"];
 
         $(restrictedIds.join(",")).change(function (e) {
@@ -324,9 +332,9 @@ $(function () {
                 document.getElementById(readId).value = 180;
             }
         });
-        
+
         let notZeroIds = ["#xRelativeAngle", "#yRelativeAngle"]
-        
+
         $(notZeroIds.join(",")).change(function (e) {
             let readId = e.target.id;
             if (document.getElementById(readId).value < 0 || document.getElementById(readId).value === "") {
@@ -366,7 +374,7 @@ $(function () {
                 }
             }
         }
-        
+
         document.getElementById("librarySelect").onchange = function(e) {
             if (e.isTrusted && this.value !== self.usedLibrary) {
                 (new PNotify({
@@ -400,7 +408,7 @@ $(function () {
                   })
             }
         }
-        
+
         function setLockingState(isToggled) {
             if (isToggled) {
                 document.getElementById("control-ztrack-servo").className = "fa fa-lock";
@@ -408,7 +416,7 @@ $(function () {
                 document.getElementById("control-ztrack-servo").className = "fa fa-unlock"
             }
         }
-        
+
         self.restartServer = function() {
             OctoPrint.system.executeCommand("core", "restart").done(function () {
                 new PNotify({
