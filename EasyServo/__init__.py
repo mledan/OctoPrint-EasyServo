@@ -112,8 +112,8 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 		if libraryUsed == "pigpio":
 			pigpioUsed = True
 			if self.pi is None:
-				self._logger.info("Initializing pigpio")
-				self.pi = pigpio.pi()
+				self._logger.info("Initializing pigpio with hostname: {}".format(HOSTNAME))
+				self.pi = pigpio.pi(HOSTNAME)
 				self._logger.info(self.pi)
 			"""self._logger.info("Initializing pigpio")
 			self.pi = pigpio.pi()
