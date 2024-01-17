@@ -1,4 +1,9 @@
-# ⚠️ 2023 RoadMap Coming Soon ⚠️
+# ⚠️ 2024 RoadMap  ⚠️
+[] Add PCA9685 and sparkfun support (multiple servos)
+[] new interface
+[] individualized motor configurations
+
+
 
 # Easy Servo
 
