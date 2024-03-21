@@ -1,4 +1,5 @@
 # ⚠️ 2024 RoadMap  ⚠️
+[] Simulation Mode
 [] Add PCA9685 and sparkfun support (multiple servos)
 [] new interface
 [] individualized motor configurations
