@@ -8,9 +8,9 @@ $(function () {
     EasyServo = {};
     EasyServo.EasyServoOptions = [
         {name: "Pigpio", value: "pigpio"},
-        {name: "Pimoroni", value: "pimoroni"}
-        {name: "Sparkfun", value: "sparkfun"}
-        {name: "Simulated", value: "simulated"}
+        {name: "Pimoroni", value: "pimoroni"},
+        {name: "Sparkfun", value: "sparkfun"},
+        {name: "Simulated", value: "simulated"},
         {name: "Adafruit", value: "adafruit"}
     ];
 
@@ -48,7 +48,7 @@ $(function () {
                 let table = document.getElementById("settings_plugin_EasyServo_table");
                 let parent = table.parentNode;
                 let spanText = document.createElement("span");
-                spanText.textContent = "Testssss loaded library: ";
+                spanText.textContent = "Current loaded library: ";
                 let libraryText = document.createElement("span");
                 libraryText.textContent = self.usedLibrary;
                 libraryText.style.fontWeight = "900";
