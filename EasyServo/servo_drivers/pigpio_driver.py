@@ -1,5 +1,7 @@
-import pigpio
 import time
+
+import pigpio
+
 
 class PigpioDriver:
     def __init__(self, settings, logger):
@@ -10,7 +12,7 @@ class PigpioDriver:
     def initialize(self):
         self._logger.info("Initializing pigpio driver")
         self.pi = pigpio.pi()
-        if not self.pi.connected:
+        if self.pi is None or not self.pi.connected:
             self._logger.error("Could not connect to pigpio daemon")
     
     def on_shutdown(self):
@@ -147,3 +149,34 @@ class PigpioDriver:
             """if x % 10 == 0:
                 self._logger.info("Setting the width of the pin {} at {} us".format(int(pin), x))"""
             time.sleep(sleepTime / 1000)
+    
+    def get_current_position(self):
+        # Implementation for getting the current position using pigpio
+        current_x = ...  # Get the current position of the X servo
+        current_y = ...  # Get the current position of the Y servo
+        return current_x, current_y
+
+    def move_to_custom_point(self, point_index):
+        points = self._settings.get(["points"])
+        if point_index < 0 or point_index >= len(points):
+            self._logger.error(f"Invalid point index: {point_index}")
+            return
+
+        point = points[point_index]
+        for axis in ["x", "y"]:
+            if axis in point:
+                angle = int(point[axis])
+                pin = self._settings.get_int([f"GPIO{axis.upper()}"])
+                self.move_servo_to_ang(pin, angle)
+                self._logger.info(f"Pigpio moving to custom point {point_index}: {axis}={angle}")
+
+    def on_shutdown(self):
+        if self.pi is not None and self.pi.connected:
+            GPIOX = self._settings.get_int(["GPIOX"])
+            GPIOY = self._settings.get_int(["GPIOY"])
+            self.pi.set_servo_pulsewidth(GPIOX, 0)
+            self.pi.set_servo_pulsewidth(GPIOY, 0)
+            self.pi.stop()
+            self._logger.info("Pigpio driver shut down successfully.")
+        else:
+            self._logger.error("Pigpio driver was not connected.")

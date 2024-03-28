@@ -1,5 +1,7 @@
-import pantilthat
 import time
+
+import pantilthat
+
 
 class PimoroniDriver:
     def __init__(self, settings, logger):
@@ -8,6 +10,7 @@ class PimoroniDriver:
         
     def angle_to_pimoroni(self, ang):
         return int(ang - 90)
+    
     def pimoroni_to_angle(self, ang):
         return int(ang + 90)
     
@@ -130,4 +133,24 @@ class PimoroniDriver:
                 pantilthat.tilt(self.angle_to_pimoroni(x))
                 self._logger.info("Setting the width of TILT at {} deg at pimoroni format {}".format(x, self.angle_to_pimoroni(x)))
                 time.sleep(sleepTime / 1000)
+                
+    def move_to_custom_point(self, point_index):
+        points = self._settings.get(["points"])
+        if point_index < 0 or point_index >= len(points):
+            self._logger.error(f"Invalid point index: {point_index}")
+            return
+
+        point = points[point_index]
+        for axis in ["x", "y"]:
+            if axis in point:
+                angle = int(point[axis])
+                if axis == "x":
+                    self.move_servo_to_ang_pimoroni("PAN", angle)
+                elif axis == "y":
+                    self.move_servo_to_ang_pimoroni("TILT", angle)
+                self._logger.info(f"Pimoroni moving to custom point {point_index}: {axis}={angle}")
+
+    def on_shutdown(self):
+        # Add any necessary shutdown code for the Pimoroni driver here
+        self._logger.info("Pimoroni driver shut down successfully.")
 

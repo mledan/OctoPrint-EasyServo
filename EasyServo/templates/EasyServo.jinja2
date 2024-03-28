@@ -3,15 +3,25 @@
         <div id="control-jog-rel-servo" class="jog-panel">
             <h1>Easy Servo</h1>
             <div class="text-center">
-                <button id="control-yinc-servo" class="btn box" data-bind="click: function() { OctoPrint.control.sendGcode(up()); }"><i class="fa fa-arrow-up"></i></button>
+                <button id="control-yinc-servo" class="btn box"
+                    data-bind="click: function() { OctoPrint.control.sendGcode(up()); }"><i
+                        class="fa fa-arrow-up"></i></button>
             </div>
             <div class="text-center">
-                <button id="control-xdec-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(left()); }"><i class="fa fa-arrow-left"></i></button>
-                <button id="control-xyhome-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(autoHome());}"><i class="fa fa-home"></i></button>
-                <button id="control-xinc-servo" class="btn box pull-left" data-bind="click: function() { OctoPrint.control.sendGcode(right()); }"><i class="fa fa-arrow-right"></i></button>
+                <button id="control-xdec-servo" class="btn box pull-left"
+                    data-bind="click: function() { OctoPrint.control.sendGcode(left()); }"><i
+                        class="fa fa-arrow-left"></i></button>
+                <button id="control-xyhome-servo" class="btn box pull-left"
+                    data-bind="click: function() { OctoPrint.control.sendGcode(autoHome());}"><i
+                        class="fa fa-home"></i></button>
+                <button id="control-xinc-servo" class="btn box pull-left"
+                    data-bind="click: function() { OctoPrint.control.sendGcode(right()); }"><i
+                        class="fa fa-arrow-right"></i></button>
             </div>
             <div class="text-center">
-                <button id="control-ydec-servo" class="btn box" data-bind="click: function() { OctoPrint.control.sendGcode(down()); }"><i class="fa fa-arrow-down"></i></button>
+                <button id="control-ydec-servo" class="btn box"
+                    data-bind="click: function() { OctoPrint.control.sendGcode(down()); }"><i
+                        class="fa fa-arrow-down"></i></button>
             </div>
         </div>
         <div id="control-jog-abs-servo" class="jog-panel">
@@ -19,17 +29,25 @@
             <div class="text-center">
                 <label for="xAbsoluteGroup" class="control-label" id="x-absolute-label"></label>
                 <div class="input-prepend input-append control-box" id="xAbsoluteGroup">
-                    <button id="control-xhome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeX());}"><i class="fa fa-home"></i></button>
-                    <input type="number" id="control-xangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.xAngle">
-                    <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(xabs()); }">Go!</button>
+                    <button id="control-xhome-servo" class="btn"
+                        data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeX());}"><i
+                            class="fa fa-home"></i></button>
+                    <input type="number" id="control-xangle" min="0" max="180" class="input-mini"
+                        data-bind="textInput: plugin_settings.motors()[0].angle">
+                    <button type="button" class="btn btn-primary"
+                        data-bind="click: function() { OctoPrint.control.sendGcode(xabs()); }">Go!</button>
                 </div>
             </div>
             <div class="text-center">
                 <label for="yAbsoluteGroup" class="control-label" id="y-absolute-label"></label>
                 <div class="input-prepend input-append control-box" id="yAbsoluteGroup">
-                    <button id="control-yhome-servo" class="btn" data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i class="fa fa-home"></i></button>
-                    <input type="number" id="control-yangle" min="0" max="180" class="input-mini" data-bind="textInput: plugin_settings.yAngle">
-                    <button type="button" class="btn btn-primary" data-bind="click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
+                    <button id="control-yhome-servo" class="btn"
+                        data-bind="click: function() { OctoPrint.control.sendGcode(autoHomeY());}"><i
+                            class="fa fa-home"></i></button>
+                    <input type="number" id="control-yangle" min="0" max="180" class="input-mini"
+                        data-bind="textInput: plugin_settings.motors()[1].angle">
+                    <button type="button" class="btn btn-primary"
+                        data-bind="click: function() { OctoPrint.control.sendGcode(yabs()); }">Go!</button>
                 </div>
             </div>
         </div>
@@ -37,29 +55,40 @@
             <h1>&nbsp</h1>
             <div class="text-center">
                 <label for="control-ztrack-servo" class="control-label">Z Tracking</label>
-                <button type="button" id="control-ztrack-servo" class="btn" data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(ztrack());}"></button>
+                <button type="button" id="control-ztrack-servo" class="btn"
+                    data-bind="enable: controlViewModel.isOperational(), click: function() { OctoPrint.control.sendGcode(ztrack());}"></button>
             </div>
         </div>
         <div id="control-custom-servo-points" class="jog-panel">
             <h1>&nbsp</h1>
             <label for="control-custom-points" class="control-label">Custom points</label>
             <div class="text-center" id="control-custom-points">
+                <!-- Use ko.if binding to check if plugin_settings.points is defined -->
+                <!-- ko if: plugin_settings.points -->
                 <label>
-                    <button id="control-custom-point1" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point1, click: function() { OctoPrint.control.sendGcode(point1());}"></button>
+                    <button id="control-custom-point1" type="button" class="btn btn-primary"
+                        data-bind="text: plugin_settings.points.length > 0 ? plugin_settings.points[0].name : '', click: function() { OctoPrint.control.sendGcode(moveToCustomPoint(0));}"></button>
                 </label>
                 <label>
-                    <button id="control-custom-point2" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point2, click: function() { OctoPrint.control.sendGcode(point2());}"></button>
+                    <button id="control-custom-point2" type="button" class="btn btn-primary"
+                        data-bind="text: plugin_settings.points.length > 1 ? plugin_settings.points[1].name : '', click: function() { OctoPrint.control.sendGcode(moveToCustomPoint(1));}"></button>
                 </label>
                 <label>
-                    <button id="control-custom-point3" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point3, click: function() { OctoPrint.control.sendGcode(point3());}"></button>
+                    <button id="control-custom-point3" type="button" class="btn btn-primary"
+                        data-bind="text: plugin_settings.points.length > 2 ? plugin_settings.points[2].name : '', click: function() { OctoPrint.control.sendGcode(moveToCustomPoint(2));}"></button>
                 </label>
                 <label>
-                    <button id="control-custom-point4" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point4, click: function() { OctoPrint.control.sendGcode(point4());}"></button>
+                    <button id="control-custom-point4" type="button" class="btn btn-primary"
+                        data-bind="text: plugin_settings.points.length > 3 ? plugin_settings.points[3].name : '', click: function() { OctoPrint.control.sendGcode(moveToCustomPoint(3));}"></button>
                 </label>
                 <label>
-                    <button id="control-custom-point5" type="button" class="btn btn-primary" data-bind="text: plugin_settings.point5, click: function() { OctoPrint.control.sendGcode(point5());}"></button>
+                    <button id="control-custom-point5" type="button" class="btn btn-primary"
+                        data-bind="text: plugin_settings.points.length > 4 ? plugin_settings.points[4].name : '', click: function() { OctoPrint.control.sendGcode(moveToCustomPoint(4));}"></button>
                 </label>
+                <!-- /ko -->
             </div>
         </div>
+
+
     </div>
 </div>

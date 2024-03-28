@@ -1,14 +1,24 @@
 # coding=utf-8
 from __future__ import absolute_import
-import time
-import re
+
+import logging
 import math
-import octoprint.plugin
+import os
+import re
 import threading
+import time
+
 import flask
+
+import octoprint.plugin
+
+# from .servo_drivers.adafruit_driver import AdafruitDriver
 from .servo_drivers.pigpio_driver import PigpioDriver
 from .servo_drivers.pimoroni_driver import PimoroniDriver
 from .servo_drivers.simulated_driver import SimulatedDriver
+
+# from .servo_drivers.sparkfun_driver import SparkfunDriver
+
 
 class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 					  octoprint.plugin.AssetPlugin,
@@ -18,103 +28,107 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 					  octoprint.plugin.SimpleApiPlugin):
 
 	def __init__(self):
+		self._plugin_version = "1.0.0"  # Replace "1.0.0" with your current plugin version
+		super(EasyservoPlugin, self).__init__()
+		self._logger = logging.getLogger("octoprint.plugins.EasyServo")
 		self.pi = None
 		self.currentZ = 0
 		self.servo_driver = None
-  
+		static_dir = os.path.join(os.path.dirname(__file__), "static", "js")
+		self._logger.info("Listing contents of static/js directory:")
+		for filename in os.listdir(static_dir):
+			self._logger.info(" - {}".format(filename))
+
 	def initialize_servo_driver(self):
 		library_used = self._settings.get(["libraryUsed"])
-		if library_used == "pigpio":
-			self.servo_driver = PigpioDriver(self._settings, self._logger)
-		elif library_used == "pimoroni":
-			self.servo_driver = PimoroniDriver(self._settings, self._logger)
-		elif library_used == "simulated":
-			self.servo_driver = SimulatedDriver(self._settings, self._logger)
-		else:
-			self._logger.error("Unknown servo driver library: {}".format(library_used))
-
-  
+		try:
+			if library_used == "pigpio":
+				self.servo_driver = PigpioDriver(self._settings, self._logger)
+			elif library_used == "pimoroni":
+				self.servo_driver = PimoroniDriver(self._settings, self._logger)
+			# elif library_used == "adafruit":
+			# 	self.servo_driver = AdafruitDriver(self._settings, self._logger)
+			# elif library_used == "sparkfun":
+			# 	self.servo_driver = SparkfunDriver(self._settings, self._logger)
+			elif library_used == "simulated":
+				self.servo_driver = SimulatedDriver(self._settings, self._logger)
+			else:
+				raise ValueError(f"Unknown servo driver library: {library_used}")
+		except Exception as e:
+			self._logger.error(f"Error initializing servo driver: {e}")
+			self.servo_driver = None
 
 	##~~ SettingsPlugin mixin
 	def get_settings_defaults(self):
-		return dict(
-			chosenOption='simulated',
-			libraryUsed='simulated',
-			GPIOX="12",
-			GPIOY="13",
-			xRelativeAngle="10",
-			yRelativeAngle="10",
-			xAutoAngle="90",
-			yAutoAngle="90",
-			xMinAngle="0",
-			xMaxAngle="180",
-			yMinAngle="0",
-			yMaxAngle="180",
-			xInvert="False",
-			yInvert="False",
-			axisInvert="False",
-			sleepTimeX="10",
-			sleepTimeY="10",
-			xAngle="90",
-			yAngle="90",
-			xOffsetBed="50",
-			yOffsetOverBed="20",
-			yOffsetUnderBed="20",
-			lockState="false",
-			point1="",
-			point1X="",
-			point1Y="",
-			point2="",
-			point2X="",
-			point2Y="",
-			point3="",
-			point3X="",
-			point3Y="",
-			point4="",
-			point4X="",
-			point4Y="",
-			point5="",
-			point5X="",
-			point5Y="",
-			currentX="",
-			currentY=""
-		)
+		return {
+			'chosenOption': 'simulated',
+			'libraryUsed': 'simulated',
+			'enableCurrentPositionControl': True,
+			'axisInvert': False,
+			'motors': [
+				{
+					'name': 'x',
+					'GPIO': '12',
+					'relativeAngle': '10',
+					'autoAngle': '90',
+					'minAngle': '0',
+					'maxAngle': '180',
+					'invert': 'False',
+					'sleepTime': '10',
+					'angle': '90',
+					'offsetOverBed': '20',
+					'offsetUnderBed': '20',
+				},
+				{
+					'name': 'y',
+					'GPIO': '13',
+					'relativeAngle': '10',
+					'autoAngle': '90',
+					'minAngle': '0',
+					'maxAngle': '180',
+					'invert': 'False',
+					'sleepTime': '10',
+					'angle': '90',
+					'offsetOverBed': '20',
+					'offsetUnderBed': '20',
+				},
+			],
+			'lockState': 'false',
+			'points': [  # Assuming points are shared among all motors
+				{'name': '1', 'x': '', 'y': ''},
+				{'name': '2', 'x': '', 'y': ''},
+				{'name': '3', 'x': '', 'y': ''},
+				{'name': '4', 'x': '', 'y': ''},
+				{'name': '5', 'x': '', 'y': ''},
+			],
+			'currentPosition': {'x': '', 'y': ''},
+		}
 
 	def on_settings_save(self, data):
-		oldGPIOX = self._settings.get_int(["GPIOX"])
-		oldGPIOY = self._settings.get_int(["GPIOY"])
-
-		octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
-
-		newGPIOX = self._settings.get_int(["GPIOX"])
-		newGPIOY = self._settings.get_int(["GPIOY"])
-
-		if oldGPIOX != newGPIOX:
-			self._logger.info("GPIO x changed, initializing.")
-			xAutoAngle = self._settings.get_int(["xAutoAngle"])
-			self.pi.set_servo_pulsewidth(newGPIOX, self.angle_to_width(xAutoAngle))  # Angle / width ??????
-		if oldGPIOY != newGPIOY:
-			self._logger.info("GPIO y changed, initiliazing.")
-			yAutoAngle = self._settings.get_int(["yAutoAngle"])
-			self.pi.set_servo_pulsewidth(newGPIOY, self.angle_to_width(yAutoAngle))
+		super().on_settings_save(data)
+		if self.servo_driver:
+			self.servo_driver.update_settings(self._settings)
 
 	##~~ AssetPlugin mixin
-
 	def get_assets(self):
 		# Define your plugin's asset files to automatically include in the
 		# core UI here.
 		return dict(
-			js=["js/EasyServo.js"],
+          	js=["js/EasyServo.js"]
 		)
 
 	##~~ StartupPlugin mixin
-
 	def on_after_startup(self):
 		self.initialize_servo_driver()
 		self._settings.set(["lockState"], "false")
-		xAutoAngle = self._settings.get_int(["xAutoAngle"])
-		yAutoAngle = self._settings.get_int(["yAutoAngle"])
+		# self._logger.info("Settings:\n%s", self._settings.get(["motors"]))
 
+		xAutoAngle = self._settings.get(["motors"])[0]["autoAngle"]
+		yAutoAngle = self._settings.get(["motors"])[1]["autoAngle"]
+		# xAutoAngle = self._settings.get_int(["motors", 0, "autoAngle"])
+		# yAutoAngle = self._settings.get_int(["motors", 1, "autoAngle"])
+		self._logger.info(f"xAutoAngle: {xAutoAngle}")
+		self._logger.info(f"yAutoAngle: {yAutoAngle}")
 		if self.servo_driver:
 			self.servo_driver.initialize()
 			self.servo_driver.move_servo_to_ang("x", xAutoAngle)
@@ -122,104 +136,113 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 		else:
 			self._logger.error("Servo driver is not initialized.")
 
-
-
 	##~~ ShutdownPlugin mixin
-
 	def on_shutdown(self):
-		if not self.pi.connected:
-			self._logger.info("There was an error on shutdown pigpio not connected")
-			return
-		GPIOX = self._settings.get_int(["GPIOX"])
-		GPIOY = self._settings.get_int(["GPIOY"])
-		self.pi.set_servo_pulsewidth(GPIOX, 0)
-		self.pi.set_servo_pulsewidth(GPIOY, 0)
-		self.pi.stop()
+		if self.servo_driver:
+			self.servo_driver.on_shutdown()
+		else:
+			self._logger.error("Servo driver is not initialized.")
 
 	##-- Template hooks
-
 	def get_template_configs(self):
-		return [dict(type="settings", custom_bindings=False),
-				dict(type="generic", template="EasyServo.jinja2", custom_bindings=True)]
+		return [
+			dict(type="settings", custom_bindings=False),
+			dict(type="generic", template="EasyServo.jinja2", custom_bindings=True, motors=self._settings.get(['motors']))
+		]
 
 	##~~ Softwareupdate hook
-
 	def get_update_information(self):
-		return dict(
-			EasyServo=dict(
-				displayName="Easy Servo",
-				displayVersion=self._plugin_version,
+		return {
+			"EasyServo": {
+				"displayName": "Easy Servo",
+				"displayVersion": self._plugin_version,
 
 				# version check: github repository
-				type="github_release",
-				user="mledan",
-				repo="OctoPrint-EasyServo",
-				current=self._plugin_version,
+				"type": "github_release",
+				"user": "mledan",
+				"repo": "OctoPrint-EasyServo",
+				"current": self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/mledan/OctoPrint-EasyServo/archive/{target_version}.zip"
-			)
-		)
-	##~~ Utility functions
+				"pip": "https://github.com/mledan/OctoPrint-EasyServo/archive/{target_version}.zip"
+			}
+		}
+	
+ 	##~~ Utility functions
 	def process_gcode(self, comm, line, *args, **kwargs):
-		if line.startswith('EASYSERVO_REL'):
-			if len(line.split()) == 3:
-				command, pin_or_axis, ang = line.split()
+		if not self.servo_driver:
+			self._logger.error("Servo driver is not initialized.")
+			return line
+
+		# Extract the command and arguments from the G-code line
+		parts = line.split()
+		if len(parts) < 3:
+			self._logger.info(f"Invalid command: {line}")
+			return line
+
+		command, pin_or_axis, ang = parts[:3]
+
+		# Check if the command is valid and if the axis or pin is configured in the settings
+		if command in ['EASYSERVO_REL', 'EASYSERVO_ABS'] and any(m['name'] == pin_or_axis for m in self._settings.get(['motors'])):
+			if command == 'EASYSERVO_REL':
 				thread = threading.Thread(target=self.servo_driver.move_servo_by, args=(pin_or_axis, int(ang)))
-				thread.daemon = True
-				thread.start()
-			else:
-				self._logger.info("Invalid EASYSERVO_REL command: {}".format(line))
-
-		elif line.startswith('EASYSERVO_ABS'):
-			if len(line.split()) == 3:
-				command, pin_or_axis, ang = line.split()
+			elif command == 'EASYSERVO_ABS':
+				self._logger.info(f"angle here: {ang}")
 				thread = threading.Thread(target=self.servo_driver.move_servo_to_ang, args=(pin_or_axis, int(ang)))
-				thread.daemon = True
-				thread.start()
-			else:
-				self._logger.info("Invalid EASYSERVO_ABS command: {}".format(line))
-
-		elif line.startswith('EASYSERVOAUTOHOME'):
-			if len(line.split()) in [2, 3]:
-				args = line.split()[1:]
-				thread = threading.Thread(target=self.servo_driver.auto_home, args=args)
-				thread.daemon = True
-				thread.start()
-			else:
-				self._logger.info("Invalid EASYSERVOAUTOHOME command: {}".format(line))
+			thread.daemon = True
+			thread.start()
+		elif command == 'EASYSERVOAUTOHOME':
+			args = parts[1:]
+			thread = threading.Thread(target=self.servo_driver.auto_home, args=args)
+			thread.daemon = True
+			thread.start()
+		else:
+			self._logger.info(f"Invalid command or axis: {line}")
 
 		return line
 
-
 	def read_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
-		# self._logger.info(cmd)
-		if ((cmd.startswith("G0") or cmd.startswith("G1")) and "Z" in cmd) and self._settings.get_boolean(
-			["lockState"]) == True:
-			# self._logger.info(cmd)
-			oldZ = self.currentZ
-			self.currentZ = float(re.findall(r'Z(\d+(\.\d+)?)', cmd)[0][0])
-			if pigpioUsed:
-				yAxis = self._settings.get_int(["GPIOY"])
-				thread = threading.Thread(target=self.move_servo_to_ang,
-										  args=(yAxis, self.calculateAngle(self.currentZ)))
-				thread.daemon = True
-				thread.start()
+		if ((cmd.startswith("G0") or cmd.startswith("G1")) and "Z" in cmd) and self._settings.get_boolean(["lockState"]):
+			# Extract the Z value from the G-code command
+			new_z = float(re.findall(r'Z(\d+(\.\d+)?)', cmd)[0][0])
+			self._logger.info(f"Current Z position: {self.currentZ}, New Z position: {new_z}")
+
+			# Calculate the angle based on the new Z position
+			new_angle = self.calculateAngle(new_z)
+			self._logger.info(f"Moving servo to angle {new_angle} based on Z position {new_z}")
+
+			# Move the servo to the new angle
+			if self.servo_driver:
+				self._logger.info(f"angle that's here: {new_angle}")
+				self.servo_driver.move_servo_to_ang("y", new_angle)
 			else:
-				if not self._settings.get_boolean(["axisInvert"]):
-					yAxis = "TILT"
-				else:
-					yAxis = "PAN"
-				thread = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(str(yAxis), int(self.currentZ)))
-				thread.daemon = True
-				thread.start()
+				self._logger.error("Servo driver is not initialized.")
+
+	def calculateAngle(self, motor_name, zHeight):
+		motor_settings = next((motor for motor in self._settings.get(['motors']) if motor['name'] == motor_name), None)
+		if motor_settings:
+			xOffsetBed = motor_settings.get('xOffsetBed', 0)
+			yOffsetOverBed = motor_settings.get('yOffsetOverBed', 0)
+			yOffsetUnderBed = motor_settings.get('yOffsetUnderBed', 0)
+			zValue = zHeight + yMinusOffsetUnderBed
+			yTiltLength = yOffsetOverBed + yMinusOffsetUnderBed
+			angle = math.degrees(math.acos((math.pow(yTiltLength, 2) - math.pow(zValue, 2)) / (
+				xOffsetBed * yTiltLength + zValue * math.sqrt(
+				math.pow(xOffsetBed, 2) - math.pow(yTiltLength, 2) + math.pow(zValue, 2)))))
+			self._logger.info(
+				"The computed angle is {}° with xOffsetBed {} yTiltLength {} zHeight {} zValue {}".format(angle, xOffsetBed,
+																										yTiltLength,
+																									zHeight, zValue))
+			return angle
+		else:
+			self._logger.error(f"Motor settings for {motor_name} not found.")
 
 	def calculateAngle(self, zHeight):
 		xOffsetBed = self._settings.get_int(["xOffsetBed"])
 		yOffsetOverBed = self._settings.get_int(["yOffsetOverBed"])
-		yMinusOffsetBed = self._settings.get_int(["yOffsetUnderBed"])
-		zValue = zHeight + yMinusOffsetBed
-		yTiltLength = yOffsetOverBed + yMinusOffsetBed
+		yMinusOffsetUnderBed = self._settings.get_int(["yOffsetUnderBed"])
+		zValue = zHeight + yMinusOffsetUnderBed
+		yTiltLength = yOffsetOverBed + yMinusOffsetUnderBed
 
 		angle = math.degrees(math.acos((math.pow(yTiltLength, 2) - math.pow(zValue, 2)) / (
 			xOffsetBed * yTiltLength + zValue * math.sqrt(
@@ -235,158 +258,60 @@ class EasyservoPlugin(octoprint.plugin.SettingsPlugin,
 			"EASYSERVO_REL": [],
 			"EASYSERVO_ABS": [],
 			"EASYSERVOAUTOHOME": [],
-			"EASYSERVO_GET_POSITION": []
+			"EASYSERVO_GET_POSITION": [],
+   			"EASYSERVO_MOVE_TO_POINT": []
 		}
 
 	def on_api_command(self, command, data):
 		if command == "EASYSERVO_REL":
-			if len(data) == 3:
-				if pigpioUsed:
-					GPIO, ang = data["pin"], data["angle"]
-					if int(GPIO) == self._settings.get_int(["GPIOX"]) or int(GPIO) == self._settings.get_int(["GPIOY"]):
-						thread = threading.Thread(target=self.move_servo_by, args=(int(GPIO), int(ang)))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("unknown GPIO %d" % int(GPIO))
-				else:
-					axis, ang = data["pin"], data["angle"]
-					if axis == "PAN" or axis == "TILT":
-						thread = threading.Thread(target=self.move_servo_by_pimoroni, args=(str(axis), int(ang)))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("please use PAN or TILT instead of '" + str(axis)) + "'"
+			if 'pin' in data and 'angle' in data and any(m['name'] == data['pin'] for m in self._settings.get(['motors'])):
+				pin_or_axis, ang = data["pin"], data["angle"]
+				thread = threading.Thread(target=self.servo_driver.move_servo_by, args=(pin_or_axis, int(ang)))
+				thread.daemon = True
+				thread.start()
 			else:
-				self._logger.info(
-					"please use the EASYSERVO_REL PIN/AXIS ANGLE instead of '{} {}'".format(str(command), str(data)))
+				self._logger.info("Invalid EASYSERVO_REL command: {}".format(data))
 
-		if command == 'EASYSERVO_ABS':
-			if len(data) == 3:
-				if pigpioUsed:
-					GPIO, ang = data["pin"], data["angle"]
-					# self._logger.info("data {} GPIO {} ang {}".format(data, GPIO, ang))
-					if int(GPIO) == self._settings.get_int(["GPIOX"]) or int(GPIO) == self._settings.get_int(["GPIOY"]):
-						thread = threading.Thread(target=self.move_servo_to_ang, args=(int(GPIO), int(ang)))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("unknown GPIO %d" % int(GPIO))
-				else:
-					axis, ang = data["pin"], data["angle"]
-					if str(axis) == "PAN" or str(axis) == "TILT":
-						thread = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(str(axis), int(ang)))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("please use PAN or TILT instead of '" + str(axis)) + "'"
+		elif command == 'EASYSERVO_ABS':
+			if 'pin' in data and 'angle' in data and any(m['name'] == data['pin'] for m in self._settings.get(['motors'])):
+				pin_or_axis, ang = data["pin"], data["angle"]
+				self._logger.info(f"angle is {ang}")
+				thread = threading.Thread(target=self.servo_driver.move_servo_to_ang, args=(pin_or_axis, int(ang)))
+				thread.daemon = True
+				thread.start()
 			else:
-				self._logger.info(
-					"please use EASYSERVO_ABS PIN/AXIS ANGLE instead of '{} {}'".format(str(command), str(data)))
+				self._logger.info("Invalid EASYSERVO_ABS command: {}".format(data))
 
-		if command == 'EASYSERVOAUTOHOME':
-			xAutoAngle = self._settings.get_int(["xAutoAngle"])
-			yAutoAngle = self._settings.get_int(["yAutoAngle"])
-			if len(data) == 3:
-				if pigpioUsed:
-					GPIO1, GPIO2 = data["pin1"], data["pin2"]
-					if (int(GPIO1) == self._settings.get_int(["GPIOX"]) and int(GPIO2) == self._settings.get_int(
-						["GPIOY"])) or \
-						(int(GPIO1) == self._settings.get_int(["GPIOY"]) and int(GPIO2) == self._settings.get_int(
-							["GPIOX"])):
-						thread_x = threading.Thread(target=self.move_servo_to_ang, args=(int(GPIO1), xAutoAngle))
-						thread_x.daemon = True
-						thread_x.start()
-						thread_y = threading.Thread(target=self.move_servo_to_ang, args=(int(GPIO2), yAutoAngle))
-						thread_y.daemon = True
-						thread_y.start()
-					else:
-						self._logger.info("unknown GPIO1 {} or GPIO2 {}".format(int(GPIO1), int(GPIO2)))
-				else:
-					axis1, axis2 = data["pin1"], data["pin2"]
-					if (str(axis1) == "PAN" and str(axis2) == "TILT") or (str(axis1) == "TILT" and str(axis2) == "PAN"):
-						if not self._settings.get_boolean(["axisInvert"]):
-							xAxis = "PAN"
-							yAxis = "TILT"
-						else:
-							xAxis = "TILT"
-							yAxis = "PAN"
-						thread_x = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(xAxis, xAutoAngle))
-						thread_x.daemon = True
-						thread_x.start()
-						thread_y = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(yAxis, yAutoAngle))
-						thread_y.daemon = True
-						thread_y.start()
-					else:
-						self._logger.info("unknown AXIS1 {} or AXIS2 {}".format(str(axis1), str(axis2)))
-			elif len(data) == 2:
-				if pigpioUsed:
-					GPIO = data["pin"]
-					if int(GPIO) == self._settings.get_int(["GPIOX"]):
-						thread = threading.Thread(target=self.move_servo_to_ang, args=(int(GPIO), xAutoAngle))
-						thread.daemon = True
-						thread.start()
-					elif int(GPIO) == self._settings.get_int(["GPIOY"]):
-						thread = threading.Thread(target=self.move_servo_to_ang, args=(int(GPIO), yAutoAngle))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("unknown GPIO %d" % int(GPIO))
-				else:
-					axis = data["pin"]
-					if str(axis) == "PAN":
-						if not self._settings.get_boolean(["axisInvert"]):
-							xAxis = "PAN"
-						else:
-							xAxis = "TILT"
-						thread = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(str(xAxis), xAutoAngle))
-						thread.daemon = True
-						thread.start()
-					if str(axis) == "TILT":
-						if not self._settings.get_boolean(["axisInvert"]):
-							yAxis = "TILT"
-						else:
-							yAxis = "PAN"
-						thread = threading.Thread(target=self.move_servo_to_ang_pimoroni, args=(str(yAxis), yAutoAngle))
-						thread.daemon = True
-						thread.start()
-					else:
-						self._logger.info("unknown axis {}".format(str(axis)))
-
-		if command == "EASYSERVO_GET_POSITION":
-			if pigpioUsed:
-				if self._settings.get_boolean(["xInvert"]):
-					currentX = 180 - self.width_to_angle(
-						self.pi.get_servo_pulsewidth(self._settings.get_int(["GPIOX"])))
-				else:
-					currentX = self.width_to_angle(self.pi.get_servo_pulsewidth(self._settings.get_int(["GPIOX"])))
-				if self._settings.get_boolean(["yInvert"]):
-					currentY = 180 - self.width_to_angle(
-						self.pi.get_servo_pulsewidth(self._settings.get_int(["GPIOY"])))
-				else:
-					currentY = self.width_to_angle(self.pi.get_servo_pulsewidth(self._settings.get_int(["GPIOY"])))
-				self._plugin_manager.send_plugin_message("EasyServo", "{} {}".format(currentX, currentY))
+		elif command == 'EASYSERVOAUTOHOME':
+			if 'args' in data and all(arg in [m['name'] for m in self._settings.get(['motors'])] for arg in data['args']):
+				args = data["args"]
+				thread = threading.Thread(target=self.servo_driver.auto_home, args=args)
+				thread.daemon = True
+				thread.start()
 			else:
-				if self._settings.get_boolean(["xInvert"]):
-					currentX = 180 - self.pimoroni_to_angle(pantilthat.get_pan())
+				self._logger.info("Invalid EASYSERVOAUTOHOME command: {}".format(data))
+
+		elif command == "EASYSERVO_GET_POSITION":
+			position = self.servo_driver.get_position()
+			self._plugin_manager.send_plugin_message("EasyServo", "{} {}".format(position["x"], position["y"]))
+
+		elif command == "EASYSERVO_MOVE_TO_POINT":
+			if 'point_index' in data:
+				point_index = int(data['point_index'])
+				if self.servo_driver:
+					thread = threading.Thread(target=self.servo_driver.move_to_custom_point, args=(point_index,))
+					thread.daemon = True
+					thread.start()
 				else:
-					currentX = self.pimoroni_to_angle(pantilthat.get_pan())
-				if self._settings.get_boolean(["yInvert"]):
-					currentY = 180 - self.pimoroni_to_angle(pantilthat.get_tilt())
-				else:
-					currentY = self.pimoroni_to_angle(pantilthat.get_tilt())
-				if self._settings.get_boolean(["axisInvert"]):
-					self._plugin_manager.send_plugin_message("EasyServo", "{} {}".format(currentY, currentX))
-				else:
-					self._plugin_manager.send_plugin_message("EasyServo", "{} {}".format(currentX, currentY))
+					self._logger.error("Servo driver is not initialized.")
+			else:
+				self._logger.info("Invalid EASYSERVO_MOVE_TO_POINT command: {}".format(data))
 
 	def on_api_get(self, request):
 		return flask.jsonify(foo="bar")
 
-
 __plugin_name__ = "Easy Servo"
 __plugin_pythoncompat__ = ">=2.7,<4"
-
 
 def __plugin_load__():
 	global __plugin_implementation__

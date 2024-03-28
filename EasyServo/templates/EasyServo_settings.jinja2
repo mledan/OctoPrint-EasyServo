@@ -1,8 +1,8 @@
 <div id="settings-panel-servo">
     <h4>Easy Servo Settings
         <div class="label label-info pull-right"><small style="color:white;">Please make sure that all prerequisites are
-            met as described <a style="color:white;"
-                                href="https://github.com/jneilliii/OctoPrint-EasyServo#pre-installation-requirements">here</a>.</small>
+                met as described <a style="color:white;"
+                    href="https://github.com/jneilliii/OctoPrint-EasyServo#pre-installation-requirements">here</a>.</small>
         </div>
     </h4>
     <table id="settings_plugin_EasyServo_table">
@@ -13,7 +13,8 @@
                         <div class="controls" id="GPIOX-div">
                             <label for="GPIOX" class="control-label" id="gpio-number-x"></label>
                             <input id="GPIOX" type="number" class="input-mini"
-                                   data-bind="value: settings.plugins.EasyServo.GPIOX">
+                                data-bind="value: settings.plugins.EasyServo.motors()[0].GPIO">
+
                         </div>
                     </div>
                 </td>
@@ -21,8 +22,8 @@
                     <div class="control-group" id="secondTabEasyServo">
                         <div class="controls">
                             <label for="GPIOY" class="control-label" id="gpio-number-y"></label>
-                            <input id="GPIOY" type="number" class="input-mini"
-                                   data-bind="value: settings.plugins.EasyServo.GPIOY">
+                            <input id="GPIOX" type="number" class="input-mini"
+                                data-bind="value: settings.plugins.EasyServo.motors()[0].GPIO">
                         </div>
                     </div>
                 </td>
@@ -34,7 +35,7 @@
                             <div class="input-append">
                                 <label for="xAutoAngle" class="control-label" id="autohome-angle-x"></label>
                                 <input id="xAutoAngle" type="number" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.xAutoAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].autoAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -44,10 +45,10 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yAutoAngle" class="control-label"
-                                       id="autohome-angle-y">{{ _('Y AutoHome Angle') }}</label>
+                                <label for="yAutoAngle" class="control-label" id="autohome-angle-y">{{ _('Y AutoHome
+                                    Angle') }}</label>
                                 <input id="yAutoAngle" type="number" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yAutoAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[1].autoAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -58,20 +59,20 @@
                 <td>
                     <div class="control-group">
                         <div class="control">
-                            <label for="xInvert" class="control-label"
-                                   id="axis-inversion-x">{{ _('X Axis Inversion') }}</label>
+                            <label for="xInvert" class="control-label" id="axis-inversion-x">{{ _('X Axis Inversion')
+                                }}</label>
                             <input id="xInvert" type="checkbox" class="input-block-level"
-                                   data-bind="checked: settings.plugins.EasyServo.xInvert">
+                                data-bind="checked: settings.plugins.EasyServo.motors()[0].invert">
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="control-group">
                         <div class="control">
-                            <label for="yInvert" class="control-label"
-                                   id="axis-inversion-y">{{ _('Y Axis Inversion') }}</label>
+                            <label for="yInvert" class="control-label" id="axis-inversion-y">{{ _('Y Axis Inversion')
+                                }}</label>
                             <input id="yInvert" type="checkbox" class="input-block-level"
-                                   data-bind="checked: settings.plugins.EasyServo.yInvert">
+                                data-bind="checked: settings.plugins.EasyServo.motors()[1].invert">
                         </div>
                     </div>
                 </td>
@@ -80,7 +81,7 @@
                         <div class="controls">
                             <label for="axisInvert" class="control-label">{{ _('Pan/Tilt Axis Inversion') }}</label>
                             <input id="axisInvert" type="checkbox" class="input-block-level"
-                                   data-bind="checked: settings.plugins.EasyServo.axisInvert">
+                                data-bind="checked: settings.plugins.EasyServo.axisInvert">
                         </div>
                     </div>
                 </td>
@@ -90,10 +91,10 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="sleepTimeX" class="control-label"
-                                       id="sleep-time-x">{{ _('X Axis Sleep Time') }}</label>
+                                <label for="sleepTimeX" class="control-label" id="sleep-time-x">{{ _('X Axis Sleep
+                                    Time') }}</label>
                                 <input id="sleepTimeX" type="number" step="1" min="0" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.sleepTimeX">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].sleepTime">
                                 <span class="add-on">ms</span>
                             </div>
                         </div>
@@ -103,10 +104,10 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="sleepTimeY" class="control-label"
-                                       id="sleep-time-y">{{ _('Y Axis Sleep Time') }}</label>
+                                <label for="sleepTimeY" class="control-label" id="sleep-time-y">{{ _('Y Axis Sleep
+                                    Time') }}</label>
                                 <input id="sleepTimeY" type="number" step="1" min="0" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.sleepTimeY">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[1].sleepTime">
                                 <span class="add-on">ms</span>
                             </div>
                         </div>
@@ -120,7 +121,7 @@
                             <div class="input-append">
                                 <label for="xOffset" class="control-label">{{ _('X Offset from bed center') }}</label>
                                 <input id="xOffset" type="number" step="1" min="0" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.xOffsetBed">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].offsetOverBed">
                                 <span class="add-on">mm</span>
                             </div>
                         </div>
@@ -130,23 +131,9 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yOffset" class="control-label">{{ _('Y Offset over bed') }}</label>
-                                <input id="yOffset" type="number" step="1" min="0" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yOffsetOverBed">
-                                <span class="add-on">mm</span>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="input-append">
-                                <label for="yOffset" class="control-label">{{ _('Y Offset under bed') }}</label>
-                                <input id="yOffset" type="number" step="1" min="0" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yOffsetUnderBed">
+                                <label for="yOffsetOverBed" class="control-label">{{ _('Y Offset over bed') }}</label>
+                                <input id="yOffsetOverBed" type="number" step="1" min="0" class="input-mini"
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].offsetOverBed">
                                 <span class="add-on">mm</span>
                             </div>
                         </div>
@@ -158,9 +145,24 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="xRelativeAngle" class="control-label" id="x-relative-angle">{{ _('X Relative Angle') }}</label>
+                                <label for="yOffsetUnderBed" class="control-label">{{ _('Y Offset under bed') }}</label>
+                                <input id="yOffsetUnderBed" type="number" step="1" min="0" class="input-mini"
+                                    data-bind="value: settings.plugins.EasyServo.motors()[1].offsetOverBed">
+                                <span class="add-on">mm</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append">
+                                <label for="xRelativeAngle" class="control-label" id="x-relative-angle">{{ _('X Relative
+                                    Angle') }}</label>
                                 <input id="xRelativeAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.xRelativeAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].relativeAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -170,9 +172,10 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yRelativeAngle" class="control-label" id="y-relative-angle">{{ _('Y Relative Angle') }}</label>
+                                <label for="yRelativeAngle" class="control-label" id="y-relative-angle">{{ _('Y Relative
+                                    Angle') }}</label>
                                 <input id="yRelativeAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yRelativeAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[1].relativeAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -184,15 +187,17 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="xMinAngle" class="control-label" id="x-min-angle">{{ _('X Minimum Angle') }}</label>
+                                <label for="xMinAngle" class="control-label" id="x-min-angle">{{ _('X Minimum Angle')
+                                    }}</label>
                                 <input id="xMinAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.xMinAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].minAngle">
                                 <span class="add-on">°</span>
                             </div>
                             <div class="input-append">
-                                <label for="xMaxAngle" class="control-label" id="x-max-angle">{{ _('X Maximum Angle') }}</label>
+                                <label for="xMaxAngle" class="control-label" id="x-max-angle">{{ _('X Maximum Angle')
+                                    }}</label>
                                 <input id="xMaxAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.xMaxAngle">
+                                    data-bind="value: settings.plugins.EasyServo.motors()[0].maxAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -202,15 +207,17 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="input-append">
-                                <label for="yMinAngle" class="control-label" id="y-min-angle">{{ _('Y Minimum Angle') }}</label>
+                                <label for="yMinAngle" class="control-label" id="y-min-angle">{{ _('Y Minimum Angle')
+                                    }}</label>
                                 <input id="yMinAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yMinAngle">
+                                    data-bind="value: settings.plugins.EasyServo.yMinAngle">
                                 <span class="add-on">°</span>
                             </div>
                             <div class="input-append">
-                                <label for="yMaxAngle" class="control-label" id="y-max-angle">{{ _('Y Maximum Angle') }}</label>
+                                <label for="yMaxAngle" class="control-label" id="y-max-angle">{{ _('Y Maximum Angle')
+                                    }}</label>
                                 <input id="yMaxAngle" type="number" step="1" min="0" max="180" class="input-mini"
-                                       data-bind="value: settings.plugins.EasyServo.yMaxAngle">
+                                    data-bind="value: settings.plugins.EasyServo.yMaxAngle">
                                 <span class="add-on">°</span>
                             </div>
                         </div>
@@ -220,68 +227,85 @@
             <br>
             <tr>
                 <td>
-                    <span><b>Point Name</b>&emsp;&emsp;&emsp;<b>X</b>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<b>Y</b></span><br>
+                    <span><b>Point
+                            Name</b>&emsp;&emsp;&emsp;<b>X</b>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<b>Y</b></span><br>
                     <span id="pointLocation">
-                        <div id="point1">
+                        <!-- Point 1 -->
+                        <div id="point1" data-bind="with: settings.plugins.EasyServo.points()[0]">
                             <input type="text" id="pointName1" placeholder="point 1" style="width: 80px;"
-                                   data-bind="value: settings.plugins.EasyServo.point1">
+                                data-bind="value: name">
                             <span class="input-append" id="spanInputX1">
                                 <input type="number" id="xCoordinate1" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1X">
-                                <span class="add-on" id="spanDeg1">°</span></span>
+                                    style="width: 40px;" data-bind="value: x">
+                                <span class="add-on" id="spanDeg1X">°</span>
+                            </span>
                             <span class="input-append" id="spanInputY1">
                                 <input type="number" id="yCoordinate1" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point1Y">
-                                <span class="add-on" id="spanDeg1">°</span></span>
+                                    style="width: 40px;" data-bind="value: y">
+                                <span class="add-on" id="spanDeg1Y">°</span>
+                            </span>
                         </div>
-                        <div id="point2">
+                        <!-- Point 2 -->
+                        <div id="point2" data-bind="with: settings.plugins.EasyServo.points()[1]">
                             <input type="text" id="pointName2" placeholder="point 2" style="width: 80px;"
-                                   data-bind="value: settings.plugins.EasyServo.point2">
+                                data-bind="value: name">
                             <span class="input-append" id="spanInputX2">
                                 <input type="number" id="xCoordinate2" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2X">
-                                <span class="add-on" id="spanDeg2">°</span></span>
+                                    style="width: 40px;" data-bind="value: x">
+                                <span class="add-on" id="spanDeg2X">°</span>
+                            </span>
                             <span class="input-append" id="spanInputY2">
                                 <input type="number" id="yCoordinate2" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point2Y">
-                                <span class="add-on" id="spanDeg2">°</span></span>
+                                    style="width: 40px;" data-bind="value: y">
+                                <span class="add-on" id="spanDeg2Y">°</span>
+                            </span>
                         </div>
-                        <div id="point3">
+                        <!-- Point 3 -->
+                        <div id="point3" data-bind="with: settings.plugins.EasyServo.points()[2]">
                             <input type="text" id="pointName3" placeholder="point 3" style="width: 80px;"
-                                   data-bind="value: settings.plugins.EasyServo.point3">
+                                data-bind="value: name">
                             <span class="input-append" id="spanInputX3">
                                 <input type="number" id="xCoordinate3" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3X">
-                                <span class="add-on" id="spanDeg3">°</span></span>
+                                    style="width: 40px;" data-bind="value: x">
+                                <span class="add-on" id="spanDeg3X">°</span>
+                            </span>
                             <span class="input-append" id="spanInputY3">
                                 <input type="number" id="yCoordinate3" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point3Y">
-                                <span class="add-on" id="spanDeg3">°</span></span>
+                                    style="width: 40px;" data-bind="value: y">
+                                <span class="add-on" id="spanDeg3Y">°</span>
+                            </span>
                         </div>
-                        <div id="point4">
+                        <!-- Point 4 -->
+                        <div id="point4" data-bind="with: settings.plugins.EasyServo.points()[3]">
                             <input type="text" id="pointName4" placeholder="point 4" style="width: 80px;"
-                                   data-bind="value: settings.plugins.EasyServo.point4">
+                                data-bind="value: name">
                             <span class="input-append" id="spanInputX4">
                                 <input type="number" id="xCoordinate4" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4X">
-                                <span class="add-on" id="spanDeg4">°</span></span>
+                                    style="width: 40px;" data-bind="value: x">
+                                <span class="add-on" id="spanDeg4X">°</span>
+                            </span>
                             <span class="input-append" id="spanInputY4">
                                 <input type="number" id="yCoordinate4" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point4Y">
-                                <span class="add-on" id="spanDeg4">°</span></span>
+                                    style="width: 40px;" data-bind="value: y">
+                                <span class="add-on" id="spanDeg4Y">°</span>
+                            </span>
                         </div>
-                        <div id="point5">
+                        <!-- Point 5 -->
+                        <div id="point5" data-bind="with: settings.plugins.EasyServo.points()[4]">
                             <input type="text" id="pointName5" placeholder="point 5" style="width: 80px;"
-                                   data-bind="value: settings.plugins.EasyServo.point5">
+                                data-bind="value: name">
                             <span class="input-append" id="spanInputX5">
                                 <input type="number" id="xCoordinate5" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5X">
-                                <span class="add-on" id="spanDeg5">°</span></span>
+                                    style="width: 40px;" data-bind="value: x">
+                                <span class="add-on" id="spanDeg5">°</span>
+                            </span>
                             <span class="input-append" id="spanInputY5">
                                 <input type="number" id="yCoordinate5" step="1" min="0" max="180" class="input-mini"
-                                       style="width: 40px;" data-bind="value: settings.plugins.EasyServo.point5Y">
-                                <span class="add-on" id="spanDeg5">°</span></span>
+                                    style="width: 40px;" data-bind="value: y">
+                                <span class="add-on" id="spanDeg5">°</span>
+                            </span>
                         </div>
+
                     </span>
                 </td>
             </tr>
@@ -290,19 +314,20 @@
                     <button id="get-current-position" type="button" class="btn btn-primary">Get Current Position
                     </button>
                     <span>X: <span id="currentPositionX"></span> Y: <span id="currentPositionY"></span></span>
-                    <label for="enable-current-position-control"
-                           class="checkbox inline">{{ _('Enable this on control tab (soon)') }}</label>
+                    <label for="enable-current-position-control" class="checkbox inline">{{ _('Enable this on control
+                        tab (soon)') }}</label>
                     <input id="enable-current-position-control" type="checkbox"
-                           data-bind="checked: settings.plugins.EasyServo.enableCurrentPositionControl">
+                        data-bind="checked: settings.plugins.EasyServo.enableCurrentPositionControl">
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="control-group">
                         <div class="controls">
-                            <label for="librarySelect" class="control-label"
-                                   disabled>{{ _('Library used (require restart)') }} </label>
-                            <select id="librarySelect" data-bind="options: EasyServo.EasyServoOptions,
+                            <label for="librarySelect" class="control-label" disabled>{{ _('Library used (require
+                                restart)') }} </label>
+                            <select id="librarySelect"
+                                data-bind="options: EasyServo.EasyServoOptions,
                                                                 optionsText: 'name',
                                                                 optionsValue: 'value',
                                                                 value: settings.plugins.EasyServo.chosenOption"></select>
