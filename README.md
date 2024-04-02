@@ -1,8 +1,9 @@
 # ⚠️ 2024 RoadMap  ⚠️
-[] Simulation Mode
-[] Add PCA9685 and sparkfun support (multiple servos)
-[] new interface
-[] individualized motor configurations
+[IN TESTING] Simulation Mode  
+[IN TESTING] Add PCA9685 and sparkfun support (multiple servos)
+[IN PROGRESS] new interface  
+[IN PROGRESS] individualized motor configurations  
+[PLANNED] control types & servo type support
 
 
 
